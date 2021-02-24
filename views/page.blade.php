@@ -11,7 +11,7 @@
 		);
 
 	?>
-ádasd
+Page
 <!-- BREADCRUMB -->
 {{-- @include('cartzilla::components.breadcrumb', ['links' => $breadcrumb]) --}}
 
