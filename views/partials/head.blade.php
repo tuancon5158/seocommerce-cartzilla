@@ -11,10 +11,11 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/themes/cartzilla/assets/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/themes/cartzilla/assets/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/themes/cartzilla/assets/favicon-16x16.png">
-<link rel="manifest" href="site.webmanifest">
+<link rel="manifest" href="/themes/cartzilla/assets/site.webmanifest">
 <link rel="mask-icon" color="#fe6a6a" href="safari-pinned-tab.svg">
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="theme-color" content="#ffffff">
+<script type="text/javascript" src="https://unpkg.com/vuex@3.6.0/dist/vuex.min.js"></script>
 
 <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
 <link rel="stylesheet" media="screen" href="/themes/cartzilla/assets/vendor/simplebar/dist/simplebar.min.css" />
@@ -25,6 +26,7 @@
 <link rel="canonical" href="{{ strtolower(url(Request::path())) }}" />
 
 <!-- Vuex store -->
+@include('cartzilla::partials.store')
 
 <!-- Inline css -->
 {!! \App\Models\Option::getValue('headCode') !!}

@@ -1,15 +1,14 @@
  @extends('cartzilla::layouts.default')
  @section('content')
- <?php
+ 	<?php
+	    // Get 3 newest
+	    $posts = \App\Models\Post::orderBy('id', 'desc')->take(3)->get();
 
-        $breadcrumb = array(
-            [
-                "text" => "Search"
-            ]
-        );
+	   
 
-    ?>
+	?>
  <div class="bg-secondary py-4">
+ {{   $posts  }}
      <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
          <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
              <nav aria-label="breadcrumb">

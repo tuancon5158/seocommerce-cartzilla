@@ -52,7 +52,7 @@
 
          </div>
 
-         @include('baby::components.paginator', ['paginator' => $products])
+         {{-- @include('baby::components.paginator', ['paginator' => $products]) --}}
 
          @endif
 

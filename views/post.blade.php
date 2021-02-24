@@ -27,7 +27,7 @@
 
 	<!-- ARTICLE -->
 	<article class="pt-7 post-content">
-
+		{{  $posts }}
 		<!-- HEADER -->
 		<header class="container">
 			<div class="row">
