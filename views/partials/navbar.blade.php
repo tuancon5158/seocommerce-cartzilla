@@ -66,7 +66,7 @@
 
                     <!-- Primary menu-->
                     <ul class="navbar-nav">
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="{{ route('login') }}" >All Product</a>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/products" >All Product</a>
                         </li>
 
                         @foreach($collections->where('parent_id', null) as $collection)
