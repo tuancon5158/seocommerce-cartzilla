@@ -21,7 +21,6 @@
 </div>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
-			console.log("hihi");
         const actions = new Vue({
             el: '#cart-icon',
 						data() {

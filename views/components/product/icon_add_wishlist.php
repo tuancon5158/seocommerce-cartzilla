@@ -1,7 +1,7 @@
-<!-- <button @click="addWishlist" id="icon-add-wislist" class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="ci-heart"></i></button> -->
-<span  id="icon-add-wislist"  >
+<button @click="addWishlist" id="icon-add-wislist" class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="ci-heart"></i></button>
+<!-- <span  id="icon-add-wislist"  >
     <div @click="addWishlist">ádasdádasd</div>
-</span>
+</span> -->
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
     const product = <?php echo json_encode($product); ?>;
@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         mounted() {
-            console.log("vue x");
-
         // $('#icon-add-wislist').removeClass('d-none');
 
         },

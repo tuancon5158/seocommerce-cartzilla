@@ -66,11 +66,11 @@
 
                     <!-- Primary menu-->
                     <ul class="navbar-nav">
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="{{ route('login') }}" data-bs-toggle="dropdown">All Product</a>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="{{ route('login') }}" >All Product</a>
                         </li>
 
                         @foreach($collections->where('parent_id', null) as $collection)
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" {{ ($collection->children and $collection->children->count()) ? "data-bs-toggle=dropdown" : "" }} href="{{ route('collection', ['slug' => $collection->slug]) }}"> {{ $collection->title }}</a>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" {{ ($collection->children and $collection->children->count()) ? "" : "" }} href="{{ route('collection', ['slug' => $collection->slug]) }}"> {{ $collection->title }}</a>
                             @if($collection->children and $collection->children->count())
                             <ul class="dropdown-menu">
                                 @foreach($collection->children as $childCollection)
@@ -83,7 +83,7 @@
 
                         @endforeach
 
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="{{ route('login') }}" data-bs-toggle="dropdown">Account</a>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="{{ route('login') }}" >Account</a>
                         </li>
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Pages</a>
                             <ul class="dropdown-menu">

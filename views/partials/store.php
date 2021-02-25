@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			// Add to card
 			async addToCart({ commit, state }, data) {
 				if ( data ) {
-
+console.log("data ss",);
 	                await $.ajax({
 	                    type:'POST',
 	                    url:'/cart',
@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                        commit('setCart', data);
 	                        commit('changePrice');
 	                        $('#modalShoppingCart').modal('show');
+							console.log("thanh cong");
 	                    },
 	                    error:function(msg){
 	                        console.log(msg.responseJSON);

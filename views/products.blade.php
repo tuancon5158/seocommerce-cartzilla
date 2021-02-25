@@ -23,7 +23,7 @@
              </nav>
              <!-- Content-->
              <!-- Sorting-->
-             <section class="d-md-flex justify-content-between align-items-center mb-4 pb-2">
+             {{-- <section class="d-md-flex justify-content-between align-items-center mb-4 pb-2">
                  <h1 class="h2 mb-3 mb-md-0 me-3">Product catalog</h1>
                  <div class="d-flex align-items-center">
                      <div class="d-none d-sm-block py-2 fs-sm text-muted text-nowrap me-2">Sort by:</div>
@@ -33,7 +33,7 @@
                          <li class="nav-item"><a class="nav-link" href="#">Expensive</a></li>
                      </ul>
                  </div>
-             </section>
+             </section> --}}
              <!-- Product grid-->
              <div class="row g-0 mx-n2">
                  <!-- Product-->

@@ -25,16 +25,7 @@
                  <!-- Errors -->
                  {{-- @include('baby::components.errors', ['errors' => $errors]) --}}
 
-                 <form action="{{ route('search') }}" method="GET" class="text-center">
-                     <div class="input-group input-group-merge">
-                         <input name="query" class="form-control" type="search" placeholder="Search...">
-                         <div class="input-group-append">
-                             <button class="btn btn-outline-border" type="submit">
-                                 <i class="fe fe-search"></i>
-                             </button>
-                         </div>
-                     </div>
-                 </form>
+
              </div>
 
          </div>
@@ -42,14 +33,14 @@
          @if($products and $products->count() > 0)
          <hr />
 
-         <div class="row mt-5">
-
+         <div class="row g-0 mx-n2">
+             <!-- Product-->
+             @if($products and $products->count() > 0)
              @foreach($products as $product)
-             <div class="col-6 col-md-4 col-lg-3">
-                 {{-- @include('baby::components.product_box_1', ['product' => $product]) --}}
-             </div>
+             @include('cartzilla::components.product.product_box', ['product' => $product])
              @endforeach
-
+             @endif
+             <!-- Product-->
          </div>
 
          {{-- @include('baby::components.paginator', ['paginator' => $products]) --}}

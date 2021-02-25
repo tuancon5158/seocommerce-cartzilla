@@ -20,8 +20,11 @@
 <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
 <link rel="stylesheet" media="screen" href="/themes/cartzilla/assets/vendor/simplebar/dist/simplebar.min.css" />
 <link rel="stylesheet" media="screen" href="/themes/cartzilla/assets/vendor/tiny-slider/dist/tiny-slider.css" />
+<link rel="stylesheet" media="screen" href="/themes/cartzilla/assets/vendor/drift-zoom/dist/drift-basic.min.css" />
+<link rel="stylesheet" media="screen" href="/themes/cartzilla/assets/vendor/lightgallery.js/dist/css/lightgallery.min.css" />
 <!-- Main Theme Styles + Bootstrap-->
 <link rel="stylesheet" media="screen" href="/themes/cartzilla/assets/css/theme.min.css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <link rel="canonical" href="{{ strtolower(url(Request::path())) }}" />
 
