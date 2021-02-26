@@ -25,7 +25,7 @@
          </div>
      </div>
  </div>
-@include('cartzilla::components.cart.cart')
+ @include('cartzilla::components.cart.cart')
 
 
 

@@ -10,7 +10,7 @@
 
     ?>
  @include('cartzilla::components.product.icon_add_to_cart')
- {{ $product }}
+ {{-- {{ $product }} --}}
  <div class="modal fade" id="size-chart">
      <div class="modal-dialog modal-dialog-scrollable">
          <div class="modal-content">

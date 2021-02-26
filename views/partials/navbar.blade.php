@@ -35,7 +35,7 @@
     <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
     <div class="navbar-sticky bg-light">
         <div class="navbar navbar-expand-lg navbar-light">
-            <div class="container"><a class="navbar-brand d-none d-sm-block flex-shrink-0"href="{{ route('home') }}"><img src="/themes/cartzilla/assets/img/logo-dark.png" width="142" alt="Cartzilla"></a><a class="navbar-brand d-sm-none flex-shrink-0 me-2" href="index.html"><img src="/themes/cartzilla/assets/img/logo-icon.png" width="74" alt="Cartzilla"></a>
+            <div class="container"><a class="navbar-brand d-none d-sm-block flex-shrink-0" href="{{ route('home') }}"><img src="/themes/cartzilla/assets/img/logo-dark.png" width="142" alt="Cartzilla"></a><a class="navbar-brand d-sm-none flex-shrink-0 me-2" href="index.html"><img src="/themes/cartzilla/assets/img/logo-icon.png" width="74" alt="Cartzilla"></a>
                 <div class="input-group d-none d-lg-flex mx-4">
                     <form style="width:100%" action="{{ route('search') }}" method="GET" class="text-center">
                         <div class="input-group input-group-merge">
@@ -54,8 +54,8 @@
                     </a><a class="navbar-tool d-none d-lg-flex" href="{{ route('wishlist') }}"><span class="navbar-tool-tooltip">Wishlist</span>
                         <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
                     </a><a class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">
-                        @include('cartzilla::components.navbar.cart_icon')
 
+                        @include('cartzilla::components.navbar.cart_icon')
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
 
                     <!-- Primary menu-->
                     <ul class="navbar-nav">
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/products" >All Product</a>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/products">All Product</a>
                         </li>
 
                         @foreach($collections->where('parent_id', null) as $collection)
@@ -83,7 +83,7 @@
 
                         @endforeach
 
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="{{ route('login') }}" >Account</a>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="{{ route('login') }}">Account</a>
                         </li>
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Pages</a>
                             <ul class="dropdown-menu">

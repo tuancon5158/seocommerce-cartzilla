@@ -49,13 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			// Load cart data
 			async loadCart({ commit, state }, data) {
 				commit('setCart', data);
-	            commit('changePrice');
+	        commit('changePrice');
 			},
 
 			// Add to card
 			async addToCart({ commit, state }, data) {
 				if ( data ) {
-console.log("data ss",);
 	                await $.ajax({
 	                    type:'POST',
 	                    url:'/cart',

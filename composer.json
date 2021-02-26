@@ -1,0 +1,13 @@
+{
+    "name": "mrkat/seocommerce-cartzilla",
+    "require-dev": {
+        "composer-plugin-api": "^2.0"
+    },
+    "authors": [
+        {
+            "name": "tuancon5158",
+            "email": "mrkathust@gmail.com"
+        }
+    ],
+    "require": {}
+}
