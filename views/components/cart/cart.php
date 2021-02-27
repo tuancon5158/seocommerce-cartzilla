@@ -21,7 +21,7 @@
                          <div  class="fs-lg text-accent pt-2">	<span class="ml-auto">{{ item.variant.price | currency }}</span></div>
                          	<!-- Variant data -->
                          <div class="fs-sm"><span class="text-muted me-2">	{{ item.variant.title }}</div>
-                         <div class="fs-sm"><span class="text-muted me-2">Color:</span>White &amp; Blue</div>
+                         <!-- <div class="fs-sm"><span class="text-muted me-2">Color:</span>White &amp; Blue</div> -->
                      </div>
                  </div>
                  <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="max-width: 9rem;">
@@ -31,7 +31,7 @@
                  </div>
              </div>
              <!-- Item-->
-           
+
          </section>
          <!-- Sidebar-->
          <aside class="col-lg-4 pt-4 pt-lg-0 ps-xl-5">
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
             		id: id,
             		quantity: quantity
             	};
-            	
+
             	await this.store.dispatch('updateCartItem', data);
 
             	this.isLoading = false;
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
 
             async removeDiscount() {
-            	
+
             	await this.store.dispatch('removeDiscount');
 
             	this.discounted = 0;
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
             	if (url.startsWith('tmp/') && (url.match(/\.(jpeg|jpg|gif|png)$/) != null)) {
             		return true;
             	}
-            	
+
             	return false;
             }
         },

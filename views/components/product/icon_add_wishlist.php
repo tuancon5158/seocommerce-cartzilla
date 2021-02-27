@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
         mounted() {
         // $('#icon-add-wislist').removeClass('d-none');
         if (product) {
-                      this.product = product;
-
-            }
+              this.product = product;
+          }
+          console.log("product",this.product.id);
         },
         methods: {
 
@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 try {
 
                     this.isAdding = true;
-
                     await this.store.dispatch('addToWishlist', this.product.id);
 
                     this.isAdding = false;

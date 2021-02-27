@@ -18,7 +18,7 @@
     <div v-if="product.description" class="text-gray-350 mb-5 mt-3">{{ product.description }}</div>
 
     <div class="mb-7 mt-6">
-        
+
         <!-- Attributes -->
         <div v-if="attribute.attribute_values && attribute.attribute_values.length" v-for="attribute in product.attributes">
             <!-- Label -->
@@ -273,7 +273,6 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         methods: {
             async addToCart() {
-                console.log("12321");
                 this.isLoading = true;
                 this.errors = null;
 
@@ -374,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {
             async addWishlist() {
 
                 try {
-                    
+
 
                     this.isAdding = true;
 
@@ -385,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } catch (err) {
                     console.log(err)
                 }
-                
+
             },
 
             showAttributeGuideModal(title, content) {
