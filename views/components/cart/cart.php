@@ -58,7 +58,7 @@
                      <div class="text-center mb-4 pb-3 border-bottom justify-content">
                          <span class="h7 mb-3 pb-1">Shipping cost calculated at Checkout *</span>
                      </div>
-                     <a class="btn btn-primary btn-shadow d-block w-100 mt-4" href="checkout-details.html"><i class="ci-card fs-lg me-2"></i>Proceed to Checkout</a>
+                     <a class="btn btn-primary btn-shadow d-block w-100 mt-4" href="/checkout"><i class="ci-card fs-lg me-2"></i>Proceed to Checkout</a>
                  </div>
              </div>
          </aside>

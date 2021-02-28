@@ -1,7 +1,26 @@
  @extends('cartzilla::layouts.default')
+ @section('head')
+ <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+ @stop
+ @section('foot')
+
+ <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+ <script type="text/javascript">
+     $(document).ready(function() {
+         $('.js-select2-search').select2({
+             selectionCssClass: 'custom-select'
+             , width: '100%'
+         });
+     });
+
+ </script>
+
+ @stop
  @section('content')
 
  <?php
+    $countries = App\Helpers\Country::getData();
 		$breadcrumb = array(
 			[
 				"text" => "Wishlist"
@@ -26,131 +45,165 @@
      </div>
  </div>
  <div class="container pb-5 mb-2 mb-md-4">
+     @if ($cart and $cart->cart_items->count() > 0)
      <div class="row">
+
          <section class="col-lg-8">
              <!-- Steps-->
-             <div class="steps steps-light pt-2 pb-3 mb-5"><a class="step-item active" href="shop-cart.html">
+             <div class="steps steps-light pt-2 pb-3 mb-5"><a class="step-item active" href="/cart">
                      <div class="step-progress"><span class="step-count">1</span></div>
                      <div class="step-label"><i class="ci-cart"></i>Cart</div>
                  </a><a class="step-item active current" href="checkout-details.html">
                      <div class="step-progress"><span class="step-count">2</span></div>
-                     <div class="step-label"><i class="ci-user-circle"></i>Details</div>
-                 </a><a class="step-item" href="checkout-shipping.html">
+                     <div class="step-label"><i class="ci-user-circle"></i>Information</div>
+                 </a><a class="step-item " href="checkout-payment.html">
                      <div class="step-progress"><span class="step-count">3</span></div>
-                     <div class="step-label"><i class="ci-package"></i>Shipping</div>
-                 </a><a class="step-item" href="checkout-payment.html">
-                     <div class="step-progress"><span class="step-count">4</span></div>
                      <div class="step-label"><i class="ci-card"></i>Payment</div>
-                 </a><a class="step-item" href="checkout-review.html">
-                     <div class="step-progress"><span class="step-count">5</span></div>
-                     <div class="step-label"><i class="ci-check-circle"></i>Review</div>
                  </a></div>
              <!-- Autor info-->
-             <div class="d-sm-flex justify-content-between align-items-center bg-secondary p-4 rounded-3 mb-grid-gutter">
-                 <div class="d-flex align-items-center">
-                     <div class="img-thumbnail rounded-circle position-relative flex-shrink-0"><span class="badge bg-warning position-absolute end-0 mt-n2" data-bs-toggle="tooltip" title="Reward points">384</span><img class="rounded-circle" src="img/shop/account/avatar.jpg" width="90" alt="Susan Gardner"></div>
-                     <div class="ps-3">
-                         <h3 class="fs-base mb-0">Susan Gardner</h3><span class="text-accent fs-sm">s.gardner@example.com</span>
-                     </div>
-                 </div><a class="btn btn-light btn-sm btn-shadow mt-3 mt-sm-0" href="account-profile.html"><i class="ci-edit me-2"></i>Edit profile</a>
+             <!-- Error messages -->
+             @include('cartzilla::components.errors', ['errors' => $errors])
+
+             <!-- Success message -->
+             @if(session('success'))
+             <div class="alert alert-success" role="alert">
+                 Success: {{ session('success') }}
              </div>
+             @endif
              <!-- Shipping address-->
              <h2 class="h6 pt-1 pb-3 mb-3 border-bottom">Shipping address</h2>
-             <div class="row">
-                 <div class="col-sm-6">
-                     <div class="mb-3">
-                         <label class="form-label" for="checkout-fn">First Name</label>
-                         <input class="form-control" type="text" id="checkout-fn">
+             <form class="needs-validation" method="POST" action="{{ route('checkout') }}" novalidate>
+                 @csrf
+                 <input type="hidden" name="cart_id" value="{{ $cart->id }}" />
+                 <div class="row">
+                     <div class="col-sm-6">
+                         <div class="mb-3">
+                             <label class="form-label" for="checkoutShippingFirstName">First Name <span class="text-danger">*</span></label>
+                             <input class="form-control" name="shipping_first_name" value="{{ old('shipping_first_name', $checkout?->shipping_address?->first_name) }}" class="form-control" id="checkoutShippingFirstName" type="text" placeholder="First Name" required>
+                             <div class="invalid-feedback">Please enter First name!</div><small class="form-text text-muted"></small>
+                         </div>
+                     </div>
+                     <div class="col-sm-6">
+                         <div class="mb-3">
+                             <label class="form-label" for="checkoutShippingLastName">Last Name <span class="text-danger">*</span></label>
+                             <input name="shipping_last_name" value="{{ old('shipping_last_name', $checkout?->shipping_address?->last_name) }}" class="form-control" id="checkoutShippingLastName" type="text">
+                             <div class="invalid-feedback">Please enter Last name!</div><small class="form-text text-muted"></small>
+                         </div>
                      </div>
                  </div>
-                 <div class="col-sm-6">
-                     <div class="mb-3">
-                         <label class="form-label" for="checkout-ln">Last Name</label>
-                         <input class="form-control" type="text" id="checkout-ln">
+                 <div class="row">
+                     <div class="col-sm-12">
+                         <div class="mb-3">
+                             <label class="form-label" for="checkoutShippingEmail">Email <span class="text-danger">*</span></label>
+                             <input required name="shipping_email" value="{{ old('shipping_email', $checkout?->shipping_address?->email) }}" class="form-control" id="checkoutShippingEmail" type="email" placeholder="Email">
+                             <div class="invalid-feedback">Please provide valid email address!</div><small class="form-text text-muted"></small>
+                         </div>
+                     </div>
+
+                 </div>
+                 <div class="row">
+                     <div class="col-sm-12">
+                         <div class="mb-3">
+                             <label class="form-label" for="checkoutShippingAddressOne">Address Line 1 <span class="text-danger">*</span></label>
+                             <input name="shipping_address1" value="{{ old('shipping_address1', $checkout?->shipping_address?->address1) }}" class="form-control" id="checkoutShippingAddressOne" type="text" required>
+                             <div class="invalid-feedback">Please enter Address Line 1</div><small class="form-text text-muted"></small>
+                         </div>
                      </div>
                  </div>
-             </div>
-             <div class="row">
-                 <div class="col-sm-6">
-                     <div class="mb-3">
-                         <label class="form-label" for="checkout-email">E-mail Address</label>
-                         <input class="form-control" type="email" id="checkout-email">
+                 <div class="row">
+                     <div class="col-sm-12">
+                         <div class="mb-3">
+                             <label class="form-label" for="checkoutShippingAddressTwo">Address Line 2 </label>
+                             <input name="shipping_address2" value="{{ old('shipping_address2', $checkout?->shipping_address?->address2) }}" class="form-control" id="checkoutShippingAddressTwo" type="text">
+                         </div>
                      </div>
                  </div>
-                 <div class="col-sm-6">
-                     <div class="mb-3">
-                         <label class="form-label" for="checkout-phone">Phone Number</label>
-                         <input class="form-control" type="text" id="checkout-phone">
+
+                 <div class="row">
+                     <div class="col-sm-6">
+                         <div class="mb-3">
+                             <label class="form-label" for="checkoutShippingCountry">Country <span class="text-danger">*</span></label>
+                             <select id="checkoutShippingCountry" name="shipping_country_code" class="form-select custom-select js-select2-search">
+                                 <option value="">-- Select country --</option>
+                                 @foreach($countries as $key => $country)
+                                 <option value="{{ $key }}" {{ old('shipping_country_code', $checkout?->shipping_address?->country_code) == $key ? 'selected' : '' }}>
+                                     {{ $country }}
+                                 </option>
+                                 @endforeach
+                             </select>
+                             {{-- <input class="form-control" name="shipping_first_name" value="{{ old('shipping_first_name', $checkout?->shipping_address?->first_name) }}" class="form-control" id="checkoutShippingFirstName" type="text" placeholder="First Name" required>
+                             <div class="invalid-feedback">Please enter First name!</div><small class="form-text text-muted"></small> --}}
+                         </div>
+                     </div>
+                     <div class="col-sm-6">
+                         <div class="mb-3">
+                             <label class="form-label" for="checkoutShippingState">State <span class="text-danger">*</span></label>
+                             <input required name="shipping_state" value="{{ old('shipping_state', $checkout?->shipping_address?->state) }}" class="form-control" id="checkoutShippingState" type="text" placeholder="State">
+                             <div class="invalid-feedback">Please enter State</div><small class="form-text text-muted"></small>
+                         </div>
                      </div>
                  </div>
-             </div>
-             <div class="row">
-                 <div class="col-sm-6">
-                     <div class="mb-3">
-                         <label class="form-label" for="checkout-company">Company</label>
-                         <input class="form-control" type="text" id="checkout-company">
+
+
+                 <div class="row">
+                     <div class="col-sm-6">
+                         <div class="mb-3">
+                             <label class="form-label" for="checkoutShippingTown">Town / City <span class="text-danger">*</span></label>
+                             <input required name="shipping_city" value="{{ old('shipping_city', $checkout?->shipping_address?->city) }}" class="form-control" id="checkoutShippingTown" type="text" placeholder="Town / City" required>
+                             <div class="invalid-feedback">Please enter Town / City</div><small class="form-text text-muted"></small>
+
+                         </div>
+                     </div>
+                     <div class="col-sm-6">
+                         <div class="mb-3">
+                             <label class="form-label" for="checkoutShippingZIP">ZIP / Postcode <span class="text-danger">*</span></label>
+                             <input required name="shipping_zip" value="{{ old('shipping_zip', $checkout?->shipping_address?->zip) }}" class="form-control" id="checkoutShippingZIP" type="text" placeholder="ZIP / Postcode" required>
+                             <div class="invalid-feedback"> Please enter ZIP / Postcode</div><small class="form-text text-muted"></small>
+                         </div>
                      </div>
                  </div>
-                 <div class="col-sm-6">
-                     <div class="mb-3">
-                         <label class="form-label" for="checkout-country">Country</label>
-                         <select class="form-select" id="checkout-country">
-                             <option>Choose country</option>
-                             <option>Australia</option>
-                             <option>Canada</option>
-                             <option>France</option>
-                             <option>Germany</option>
-                             <option>Switzerland</option>
-                             <option>USA</option>
-                         </select>
+                 <div class="row">
+                     <div class="col-sm-12">
+                         <label class="form-label" for="checkoutShippingPhone">Mobile Phone <span class="text-danger">*</span></label>
+                         <input required name="shipping_phone" value="{{ old('shipping_phone', $checkout?->shipping_address?->phone) }}" class="form-control" id="checkoutShippingPhone" type="tel" placeholder="Mobile Phone">
+                         <div class="invalid-feedback">Please enter Mobile Phone</div><small class="form-text text-muted"></small>
                      </div>
                  </div>
-             </div>
-             <div class="row">
-                 <div class="col-sm-6">
-                     <div class="mb-3">
-                         <label class="form-label" for="checkout-city">Country</label>
-                         <select class="form-select" id="checkout-city">
-                             <option>Choose city</option>
-                             <option>Amsterdam</option>
-                             <option>Berlin</option>
-                             <option>Geneve</option>
-                             <option>New York</option>
-                             <option>Paris</option>
-                         </select>
+                 <h6 class="mb-3 py-3 border-bottom">Billing address</h6>
+                 <div class="row">
+                     <div class="col-sm-12">
+                         <input name="same_address" class="form-check-input" value="1" {{ old('same_address') === '1' ? 'checked' : '' }} type="checkbox" checked id="checkoutBillingAddress">
+                         <label class="form-check-label" for="checkoutBillingAddress"> Use the same address?</label>
                      </div>
                  </div>
-                 <div class="col-sm-6">
-                     <div class="mb-3">
-                         <label class="form-label" for="checkout-zip">ZIP Code</label>
-                         <input class="form-control" type="text" id="checkout-zip">
-                     </div>
+                 <h6 class="mb-3 py-3 border-bottom">Billing address</h6>
+                 <div class="table-responsive mb-7">
+                     <table class="table table-bordered table-sm table-hover mb-0">
+                         <tbody>
+                             @foreach($shippings as $index => $shipping)
+                             <tr>
+                                 <td>
+                                     <div class="custom-control custom-radio">
+                                         <input class="custom-control-input" id="checkoutShipping{{ $shipping->id }}" name="shipping_id" value="{{ $shipping->id }}" type="radio" {{ $loop->first ? 'checked' : '' }} />
+                                         <label class="custom-control-label text-body text-nowrap" for="checkoutShipping{{ $shipping->id }}">
+                                             {{ $shipping->title }}
+                                         </label>
+                                     </div>
+                                 </td>
+                                 <td class="text-center">{{ $shipping->description }}</td>
+                                 <td class="text-center">
+                                     From {{ App\Helpers\Price::format($shipping->default_price) }}
+                                 </td>
+                             </tr>
+                             @endforeach
+                         </tbody>
+                     </table>
                  </div>
-             </div>
-             <div class="row">
-                 <div class="col-sm-6">
-                     <div class="mb-3">
-                         <label class="form-label" for="checkout-address-1">Address 1</label>
-                         <input class="form-control" type="text" id="checkout-address-1">
-                     </div>
+                 <div class="d-none d-lg-flex pt-4 mt-3">
+                     <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Submit</button>
+
                  </div>
-                 <div class="col-sm-6">
-                     <div class="mb-3">
-                         <label class="form-label" for="checkout-address-2">Address 2</label>
-                         <input class="form-control" type="text" id="checkout-address-2">
-                     </div>
-                 </div>
-             </div>
-             <h6 class="mb-3 py-3 border-bottom">Billing address</h6>
-             <div class="form-check">
-                 <input class="form-check-input" type="checkbox" checked id="same-address">
-                 <label class="form-check-label" for="same-address">Same as shipping address</label>
-             </div>
-             <!-- Navigation (desktop)-->
-             <div class="d-none d-lg-flex pt-4 mt-3">
-                 <div class="w-50 pe-3"><a class="btn btn-secondary d-block w-100" href="shop-cart.html"><i class="ci-arrow-left mt-sm-0 me-1"></i><span class="d-none d-sm-inline">Back to Cart</span><span class="d-inline d-sm-none">Back</span></a></div>
-                 <div class="w-50 ps-2"><a class="btn btn-primary d-block w-100" href="checkout-shipping.html"><span class="d-none d-sm-inline">Proceed to Shipping</span><span class="d-inline d-sm-none">Next</span><i class="ci-arrow-right mt-sm-0 ms-1"></i></a></div>
-             </div>
+             </form>
          </section>
          <!-- Sidebar-->
          <aside class="col-lg-4 pt-4 pt-lg-0 ps-xl-5">
@@ -210,5 +263,10 @@
              </div>
          </div>
      </div>
+     @else
+     <div class="row">
+         Your cart is empty!
+     </div>
+     @endif
  </div>
  @stop
