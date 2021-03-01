@@ -11,11 +11,12 @@
              <div  v-for="item in store.state.cart.cart_items" class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
                  <div class="d-block d-sm-flex align-items-center text-center text-sm-start"><a class="d-inline-block flex-shrink-0 mx-auto me-sm-4" href="shop-single-v1.html"><img width="160px" :src="
 											item.product.thumbnail
-											? '/resize/160/' + item.product.thumbnail.id + '/' + item.product.thumbnail.file_name
+											? '/resize/200/' + item.product.thumbnail.id + '/' + item.product.thumbnail.file_name
 											: '/themes/baby/assets/img/default.jpg'
 										"
 										:alt="item.product.title"
 										class="img-fluid"></a>
+
                      <div class="pt-2">
                          <h3 class="product-title fs-base mb-2"><a  :href="'/products/' + item.product.slug">{{ item.product.title }}</a></h3>
                          <div  class="fs-lg text-accent pt-2">	<span class="ml-auto">{{ item.variant.price | currency }}</span></div>

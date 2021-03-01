@@ -27,10 +27,10 @@
 
 	<!-- ARTICLE -->
 	<article class="pt-7 post-content">
-		{{  $posts }}
+		{{-- {{  $posts }} --}}
 		<!-- HEADER -->
 		<header class="container">
-			<div class="row">
+			<div class="row mt-5">
 				<div class="col-12 text-center">
 
 					<!-- Heading -->
@@ -75,7 +75,7 @@
 		</section>
 
 		<!-- FOOTER -->
-		<footer class="pt-0">
+		{{-- <footer class="pt-0">
 			<div class="container">
 				@if($categories = $post->categories and $categories->count())
 				<div class="row mb-5">
@@ -119,7 +119,7 @@
 					</div>
 				</div>
 			</div>
-		</footer>
+		</footer> --}}
 
 	</article>
 

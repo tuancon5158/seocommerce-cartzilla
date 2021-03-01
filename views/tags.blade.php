@@ -3,13 +3,13 @@
 @section('content')
 
 	<!-- HEADER -->
-    <div class="pt-7">
+    <div class="mt-5">
       	<div class="container">
         	<div class="row">
           		<div class="col-12">
 
             		<!-- Heading -->
-            		<h1 class="mb-10 text-center">
+            		<h1 class="mb-5 text-center">
             			{{ $title ?: 'All Tags - '.\App\Models\Option::getValue('siteName') }}
             		</h1>
 
@@ -20,7 +20,7 @@
 
     <!-- CONTENT -->
 	<section class="py-12">
-		<div class="container">
+		<div class="container mt-5">
 
 			@if($tags and $tags->count() > 0)
 			<div class="row">
@@ -29,7 +29,7 @@
 				<div class="col-6 col-md-3 col-lg-2">
 
 					<!-- Card -->
-					<div class="card mb-7">
+					<div class="card mb-5">
 
 						<!-- Image -->
 						<div class="card-img">
@@ -58,7 +58,7 @@
 				<div class="modal-body flex-grow-0 my-auto text-center">
 
 					<!-- Heading -->
-					<h6 class="mb-7 text-center">Tags not found 😞</h6>
+					<h6 class="mb-5 text-center">Tags not found 😞</h6>
 
 					<!-- Button -->
 					<a href="{{ route('products') }}" class="btn btn-outline-dark">

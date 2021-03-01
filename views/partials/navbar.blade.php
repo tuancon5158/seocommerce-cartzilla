@@ -70,13 +70,19 @@
                         </li>
 
                         @foreach($collections->where('parent_id', null) as $collection)
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" {{ ($collection->children and $collection->children->count()) ? "" : "" }} href="{{ route('collection', ['slug' => $collection->slug]) }}"> {{ $collection->title }}</a>
+                        <li class="nav-item dropdown"><a class="nav-link " {{ ($collection->children and $collection->children->count()) ? "dropdown-toggle" : "" }} href="{{ route('collection', ['slug' => $collection->slug]) }}"> {{ $collection->title }}</a>
                             @if($collection->children and $collection->children->count())
                             <ul class="dropdown-menu">
                                 @foreach($collection->children as $childCollection)
                                 <li><a class="dropdown-item" href="{{ route('collection', ['slug' => $childCollection->slug]) }}"> {{ str_replace($collection->title, '', $childCollection->title) }}
                                     </a></li>
                                 @endforeach
+                                 <hr />
+                                    <li class="">
+                                        <a class="dropdown-item" href="{{ route('collection', ['slug' => $collection->slug]) }}">
+                                            Explore {{ $collection->title }}
+                                        </a>
+                                    </li>
                             </ul>
                             @endif
                         </li>

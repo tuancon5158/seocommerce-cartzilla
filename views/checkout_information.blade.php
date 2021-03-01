@@ -53,10 +53,10 @@
              <div class="steps steps-light pt-2 pb-3 mb-5"><a class="step-item active" href="/cart">
                      <div class="step-progress"><span class="step-count">1</span></div>
                      <div class="step-label"><i class="ci-cart"></i>Cart</div>
-                 </a><a class="step-item active current" href="checkout-details.html">
+                 </a><a class="step-item active current" href="#">
                      <div class="step-progress"><span class="step-count">2</span></div>
                      <div class="step-label"><i class="ci-user-circle"></i>Information</div>
-                 </a><a class="step-item " href="checkout-payment.html">
+                 </a><a class="step-item " href="#">
                      <div class="step-progress"><span class="step-count">3</span></div>
                      <div class="step-label"><i class="ci-card"></i>Payment</div>
                  </a></div>
@@ -211,44 +211,67 @@
                  <div class="py-2 px-xl-2">
                      <div class="widget mb-3">
                          <h2 class="widget-title text-center">Order summary</h2>
-                         <div class="d-flex align-items-center pb-2 border-bottom"><a class="d-block flex-shrink-0" href="shop-single-v1.html"><img src="img/shop/cart/widget/01.jpg" width="64" alt="Product"></a>
+                         @foreach($cart->cart_items as $item)
+                         <div class="d-flex align-items-center pb-2 border-bottom"><a class="d-block flex-shrink-0" href="{{ route('product', ['slug' => $item->product->slug]) }}"><img src="{{ \App\Helpers\Image::resizeMedia(200, $item->product->thumbnail) }}" alt="{{ $item->product->title }}" width="64" alt="Product"></a>
                              <div class="ps-2">
-                                 <h6 class="widget-product-title"><a href="shop-single-v1.html">Women Colorblock Sneakers</a></h6>
-                                 <div class="widget-product-meta"><span class="text-accent me-2">$150.<small>00</small></span><span class="text-muted">x 1</span></div>
+                                 <h6 class="widget-product-title"><a href="{{ route('product', ['slug' => $item->product->slug]) }}">{{ $item->product->title }}</a></h6>
+                                 <div class="widget-product-meta"><span class="text-accent me-2">{{ App\Helpers\Price::format($item->product->price) }}</span><span class="text-muted">x {{$item->quantity}}</span></div>
+                                 @if($item->custom_price)
+                                 <div class="widget-product-meta"><span class="text-accent me-2">(Customization {{ App\Helpers\Price::format($item->custom_price) }})</span><span class="text-muted">x {{$item->quantity}}</span></div>
+                                 @endif
+                                 @if($item->variant->title)
+                                 <div class="widget-product-meta"><span class="text-accent me-2">
+                                         {{ $item->variant->title }}
+                                     </span>
+                                 </div>
+                                 @endif
+                                 @if($item->custom_data)
+                                 <div class="font-size-sm">
+                                     @foreach($item->custom_data as $title => $custom)
+                                     <div>
+                                         {{ $title }}:
+                                         @if(substr($custom['value'], 0, 4) == 'tmp/' and in_array(substr($custom['value'], -4), [".jpg", "jpeg", ".png", ".gif", ".bmp"]) )
+                                         <div>
+                                             <img width="70" src="{{ \Storage::url('/').$custom['value'] }}">
+                                         </div>
+                                         @else
+                                         <span>
+                                             {{ $custom['value'] }}
+                                         </span>
+                                         @endif
+                                     </div>
+                                     @endforeach
+                                 </div>
+                                 @endif
                              </div>
                          </div>
-                         <div class="d-flex align-items-center py-2 border-bottom"><a class="d-block flex-shrink-0" href="shop-single-v1.html"><img src="img/shop/cart/widget/02.jpg" width="64" alt="Product"></a>
-                             <div class="ps-2">
-                                 <h6 class="widget-product-title"><a href="shop-single-v1.html">TH Jeans City Backpack</a></h6>
-                                 <div class="widget-product-meta"><span class="text-accent me-2">$79.<small>50</small></span><span class="text-muted">x 1</span></div>
-                             </div>
-                         </div>
-                         <div class="d-flex align-items-center py-2 border-bottom"><a class="d-block flex-shrink-0" href="shop-single-v1.html"><img src="img/shop/cart/widget/03.jpg" width="64" alt="Product"></a>
-                             <div class="ps-2">
-                                 <h6 class="widget-product-title"><a href="shop-single-v1.html">3-Color Sun Stash Hat</a></h6>
-                                 <div class="widget-product-meta"><span class="text-accent me-2">$22.<small>50</small></span><span class="text-muted">x 1</span></div>
-                             </div>
-                         </div>
-                         <div class="d-flex align-items-center py-2 border-bottom"><a class="d-block flex-shrink-0" href="shop-single-v1.html"><img src="img/shop/cart/widget/04.jpg" width="64" alt="Product"></a>
-                             <div class="ps-2">
-                                 <h6 class="widget-product-title"><a href="shop-single-v1.html">Cotton Polo Regular Fit</a></h6>
-                                 <div class="widget-product-meta"><span class="text-accent me-2">$9.<small>00</small></span><span class="text-muted">x 1</span></div>
-                             </div>
-                         </div>
+                         @endforeach
+
                      </div>
                      <ul class="list-unstyled fs-sm pb-2 border-bottom">
-                         <li class="d-flex justify-content-between align-items-center"><span class="me-2">Subtotal:</span><span class="text-end">$265.<small>00</small></span></li>
-                         <li class="d-flex justify-content-between align-items-center"><span class="me-2">Shipping:</span><span class="text-end">—</span></li>
-                         <li class="d-flex justify-content-between align-items-center"><span class="me-2">Taxes:</span><span class="text-end">$9.<small>50</small></span></li>
-                         <li class="d-flex justify-content-between align-items-center"><span class="me-2">Discount:</span><span class="text-end">—</span></li>
+                         <li class="d-flex justify-content-between align-items-center"><span class="me-2">Subtotal:</span><span class="text-end"> {{ App\Helpers\Price::format($cart->subtotal) }}</span></li>
+                         <li class="d-flex justify-content-between align-items-center"><span class="me-2">Discounted:</span><span class="text-end"> {{ App\Helpers\Price::format($cart->discounted) }}</span></li>
+                         <li class="d-flex justify-content-between align-items-center"><span class="me-2">Discount Code:</span><span class="text-end"> <span class="ml-auto font-size-sm">
+                                     @if($cart->discount)
+                                     <form action="{{ route('removeDiscount') }}" method="post">
+                                         @csrf
+                                         {{ $cart->discount?->code }}
+                                         <button class="text-danger border-0 bg-transparent">
+                                             <i class="fe fe-x"></i>
+                                         </button>
+                                     </form>
+                                     @endif
+                                 </span></span></li>
                      </ul>
-                     <h3 class="fw-normal text-center my-4">$274.<small>50</small></h3>
-                     <form class="needs-validation" method="post" novalidate>
+                     {{-- //Total --}}
+                     <h3 class="fw-normal text-center my-4"> {{ App\Helpers\Price::format($cart->total) }}</h3>
+                     <form novalidate action="{{ route('discount') }}" method="post">
+                         @csrf
                          <div class="mb-3">
-                             <input class="form-control" type="text" placeholder="Promo code" required>
-                             <div class="invalid-feedback">Please provide promo code.</div>
+                             <input class="form-control" name="code" id="discount" type="text" placeholder="Code" required>
+                             <div class="invalid-feedback">Please provide discount.</div>
                          </div>
-                         <button class="btn btn-outline-primary d-block w-100" type="submit">Apply promo code</button>
+                         <button class="btn btn-outline-primary d-block w-100" type="submit">Apply</button>
                      </form>
                  </div>
              </div>

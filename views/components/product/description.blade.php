@@ -12,13 +12,14 @@
             @endforeach
         </ul>
         <div class="tab-content text-muted fs-sm">
-            {{-- @if( $product->content )
+            @if( $product->content )
             <div class="tab-pane fade show active" id="description" role="tabpanel"> {!! $product->content !!}</div>
             @endif
             @foreach( $product->attributes as $attribute)
+            {{-- {{ $loop->index }} --}}
             @if($attribute->guide)
             <div class="tab-pane fade" id="guide-{{ $loop->index }}" role="tabpanel"> {!! $attribute->guide !!}</div>
             @endif
-            @endforeach --}}
+            @endforeach
         </div>
     </div>

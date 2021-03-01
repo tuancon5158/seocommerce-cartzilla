@@ -1,7 +1,7 @@
-@extends('baby::layouts.default')
+@extends('cartzilla::layouts.default')
 
 @section('content')
 
-    @include('baby::components.payment.success')
+    @include('cartzilla::components.payment.success')
 
 @endsection

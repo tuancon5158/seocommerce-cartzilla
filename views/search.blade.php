@@ -14,7 +14,7 @@
 
          <!-- Heading -->
          <h3 class="mb-4 text-center">
-             Search
+             Search :  {{ Request::get('query') }}
          </h3>
 
          <div class="row justify-content-center mb-8">
