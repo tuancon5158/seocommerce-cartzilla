@@ -1,12 +1,12 @@
 
- <div id="product-actions1" class="col-lg-5 pt-4 pt-lg-0 d-none">
-     <div class="product-details ms-auto pb-3">
+ <div id="product-actions-<?php echo json_encode($product->id); ?>" class="col-lg-5 pt-4 pt-lg-0 d-nonenone">
+<div class="product-details ms-auto pb-3">
          <div class="d-flex justify-content-between align-items-center mb-2"><a href="#reviews" data-scroll>
                  <div class="star-rating"><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i>
                  </div>
                  <span v-if="product.review" class="d-inline-block fs-sm text-body align-middle mt-1 ms-1"> {{ product.reviews.length }} Reviews</span>
              </a>
-             <button class="btn-wishlist me-0 me-lg-n3" type="button" data-bs-toggle="tooltip" title="Add to wishlist"><i class="ci-heart"></i></button>
+             <button class="btn-wishlist me-0 me-lg-n3" type="button" data-bs-toggle="tooltip" @click="addWishlist" title="Add to wishlist"><i class="ci-heart"></i></button>
          </div>
          <div class="mb-3">
              <span class="h3 fw-normal text-accent me-1">{{ variantSelected ? variantSelected.price : product.price | currency }}</span>
@@ -159,9 +159,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const variants = <?php echo json_encode($product->variants); ?>;
     const customs = <?php echo json_encode($product->customs); ?>;
     const variantAttributeValues = <?php echo json_encode($product->variant_attribute_values); ?>;
-
+    console.log("$product", product);
     const actions = new Vue({
-        el: '#product-actions1',
+        el: `#product-actions-${product.id}`,
         data() {
             return {
                 quantity: 1,
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // this.checkVariant();
 
-            $('#product-actions1').removeClass('d-none');
+             $(`#product-actions-${product.id}`).removeClass('d-none');
 
         },
         methods: {

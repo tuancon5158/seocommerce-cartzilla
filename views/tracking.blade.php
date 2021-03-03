@@ -14,7 +14,7 @@
 	@include('cartzilla::components.breadcrumb', ['links' => $breadcrumb])
 
 	<!-- HEADER -->
-	<section class="pt-7 pb-12">
+	<section class="pt-5 pb-10">
 		<div class="container">
 
 			<!-- Heading -->

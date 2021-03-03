@@ -15,9 +15,9 @@
              <nav aria-label="breadcrumb">
                  <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
                      <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i class="ci-home"></i>Home</a></li>
-                     <li class="breadcrumb-item text-nowrap"><a href="#">Shop</a>
+                     <li class="breadcrumb-item text-nowrap"><a href="#">Product</a>
                      </li>
-                     <li class="breadcrumb-item text-nowrap active" aria-current="page">Product Page v.1</li>
+                     {{-- <li class="breadcrumb-item text-nowrap active" aria-current="page">Product Page v.1</li> --}}
                  </ol>
              </nav>
          </div>
@@ -57,9 +57,7 @@
                          </div>
                      </div>
                  </div>
-                 <!-- Product details-->
                  @include('cartzilla::components.product.actions1')
-                 {{-- @include('cartzilla::components.product.actions') --}}
 
              </div>
          </div>

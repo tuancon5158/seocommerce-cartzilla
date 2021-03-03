@@ -1,5 +1,5 @@
 <div id="cart-items" class="container pb-5 mb-2 mb-md-4">
-     <div  v-if="store.state.cart && store.state.cart.cart_items.length" class="row">
+     <div  v-if="store.state.cart && store.state.cart.cart_items && store.state.cart.cart_items.length" class="row">
          <!-- List of items-->
          <section class="col-lg-8">
              <div class="d-flex justify-content-between align-items-center pt-3 pb-4 pb-sm-5 mt-1">

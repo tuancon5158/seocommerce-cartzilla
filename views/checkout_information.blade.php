@@ -183,9 +183,9 @@
                              @foreach($shippings as $index => $shipping)
                              <tr>
                                  <td>
-                                     <div class="custom-control custom-radio">
-                                         <input class="custom-control-input" id="checkoutShipping{{ $shipping->id }}" name="shipping_id" value="{{ $shipping->id }}" type="radio" {{ $loop->first ? 'checked' : '' }} />
-                                         <label class="custom-control-label text-body text-nowrap" for="checkoutShipping{{ $shipping->id }}">
+                                     <div class="form-check">
+                                         <input class=" form-check-input" id="checkoutShipping{{ $shipping->id }}" name="shipping_id" value="{{ $shipping->id }}" type="radio" {{ $loop->first ? 'checked' : '' }} />
+                                         <label class="form-check-input text-body text-nowrap" for="checkoutShipping{{ $shipping->id }}">
                                              {{ $shipping->title }}
                                          </label>
                                      </div>

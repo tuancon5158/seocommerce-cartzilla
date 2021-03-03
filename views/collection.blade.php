@@ -11,9 +11,9 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
                     <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i class="ci-home"></i>Home</a></li>
-                    <li class="breadcrumb-item text-nowrap"><a href="#">Shop</a>
+                    <li class="breadcrumb-item text-nowrap" href="collections"><a href="/collections">Collections</a>
                     </li>
-                    <li class="breadcrumb-item text-nowrap active" aria-current="page">Grid left sidebar</li>
+                    {{-- <li class="breadcrumb-item text-nowrap active" aria-current="page">Grid left sidebar</li> --}}
                 </ol>
             </nav>
         </div>
@@ -23,7 +23,6 @@
     </div>
 </div>
 <div class="container pb-5 mb-2 mb-md-4">
-
     <div class="row">
         <ul class="nav nav-tabs mb-3 d-flex " role="tablist">
             <li class="nav-item"><a class="nav-link active" href="#">View all</a></li>

@@ -1,9 +1,9 @@
-<button key="product.id" @click="addWishlist" id="icon-add-wislist" class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="ci-heart"></i></button>
+<button id="icon-add-wislist-<?php echo json_encode($product->id); ?>" @click="addWishlist"  class="btn-wishlist btn-sm d-none" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="ci-heart"></i></button>
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
     const product = <?php echo json_encode($product); ?>;
     const actions = new Vue({
-        el: '#icon-add-wislist',
+        el: `#icon-add-wislist-<?php echo json_encode($product->id); ?>`,
         data(){
             return  {
                 isAdding:false,
@@ -12,16 +12,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         mounted() {
-        // $('#icon-add-wislist').removeClass('d-none');
+         $('#icon-add-wislist-<?php echo json_encode($product->id); ?>').removeClass('d-none');
         if (product) {
               this.product = product;
           }
-          console.log("product",this.product.id);
         },
         methods: {
 
             async addWishlist() {
-
                 try {
 
                     this.isAdding = true;

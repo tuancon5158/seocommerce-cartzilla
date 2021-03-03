@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title product-title"><a href="shop-single-v1.html" data-bs-toggle="tooltip" data-bs-placement="right" title="Go to product page">Sports Hooded Sweatshirt<i class="ci-arrow-right fs-lg ms-2"></i></a></h4>
+                <h4 class="modal-title product-title"><a href="{{ route('product', ['slug' => $product->slug]) }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Go to product page">{{$product->title}}<i class="ci-arrow-right fs-lg ms-2"></i></a></h4>
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -42,9 +42,10 @@
 </div>
 <div class="col-md-3 col-sm-6 px-2 mb-4">
     <div class="card product-card">
-        <button class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="ci-heart"></i></button><a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img src="{{ \App\Helpers\Image::resizeMedia(300, $product->thumbnail) }}" alt="..."></a>
+                   @include('cartzilla::components.product.icon_add_wishlist')
+<a class="card-img-top d-block overflow-hidden" href="{{ route('product', ['slug' => $product->slug]) }}"><img src="{{ \App\Helpers\Image::resizeMedia(300, $product->thumbnail) }}" alt="..."></a>
         <div class="card-body py-2">
-            <h3 class="product-title fs-sm"><a href="shop-single-v1.html">{{ $product->title }}</a></h3>
+            <h3 class="product-title fs-sm"><a href="{{ route('product', ['slug' => $product->slug]) }}">{{ $product->title }}</a></h3>
             <div class="d-flex justify-content-between">
                 <div class="product-price"><span class="text-accent"> {{ App\Helpers\Price::format($product->price) }}</span></div>
                 @if($product->rating > 0 and $product->review_count > 0)
@@ -54,7 +55,7 @@
             </div>
         </div>
         <div class="card-body card-body-hidden">
-            <div class="text-center pb-2">
+            {{-- <div class="text-center pb-2">
                 <div class="form-check form-option form-check-inline mb-2">
                     <input class="form-check-input" type="radio" name="size1" id="s-75">
                     <label class="form-option-label" for="s-75">7.5</label>
@@ -71,7 +72,7 @@
                     <input class="form-check-input" type="radio" name="size1" id="s-90">
                     <label class="form-option-label" for="s-90">9</label>
                 </div>
-            </div>
+            </div> --}}
             {{-- <button class="btn btn-primary btn-sm d-block w-100 mb-2" type="button"><i class="ci-cart fs-sm me-1"></i>Add to Cart</button> --}}
             <div class="text-center"><a class="nav-link-style fs-ms primary" href="#quick-view-p-{{$product->id}}" data-bs-toggle="modal"><i class="ci-eye align-middle me-1"></i>Quick view</a></div>
         </div>

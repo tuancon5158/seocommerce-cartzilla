@@ -71,13 +71,13 @@
                             <div class="list-group-item">
 
                                 <!-- Radio -->
-                                <div class="custom-control custom-radio">
+                                <div class="form-check custom-radio">
 
                                     <!-- Input -->
-                                    <input class="custom-control-input" id="checkoutPaymentPaypal" name="payment_gateway_id" type="radio" value="{{ $paymentGateway->id }}" {{ $loop->first ? 'checked' : '' }}>
+                                    <input class="form-check-input" id="checkoutPaymentPaypal" name="payment_gateway_id" type="radio" value="{{ $paymentGateway->id }}" {{ $loop->first ? 'checked' : '' }}>
 
                                     <!-- Label -->
-                                    <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentPaypal">
+                                    <label class="form-check-input font-size-sm text-body text-nowrap" for="checkoutPaymentPaypal">
                                         {{ $paymentGateway->title }}
                                     </label>
 

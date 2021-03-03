@@ -1,5 +1,4 @@
-   <div key="{{ $product->id }}" class="col-xl-3 col-lg-6 col-md-4 col-sm-6 px-2 mb-3">
-       <div class="card product-card card-static pb-3">
+       <div id="product-views-<?php echo json_encode($product->id); ?>"  class="card product-card card-static pb-3">
            @include('cartzilla::components.product.icon_add_wishlist')
            <a class="card-img-top d-block overflow-hidden" href="{{ route('product', ['slug' => $product->slug]) }}"><img src="{{ \App\Helpers\Image::resizeMedia(300, $product->thumbnail) }}" alt="..." alt="Product"></a>
            <div class=" py-2">
@@ -10,4 +9,3 @@
            <div class="product-floating-btn">
            </div>
        </div>
-   </div>

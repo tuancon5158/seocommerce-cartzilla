@@ -19,7 +19,7 @@
                  <nav class="mb-4" aria-label="breadcrumb">
                      <ol class="breadcrumb flex-lg-nowrap">
                          <li class="breadcrumb-item"><a class="text-nowrap" href="home-grocery-store.html"><i class="ci-home"></i>Home</a></li>
-                         <li class="breadcrumb-item text-nowrap active" aria-current="page">Product catalog</li>
+                         <li class="breadcrumb-item text-nowrap active" aria-current="page">Products</li>
                      </ol>
                  </nav>
 
@@ -45,7 +45,10 @@
                  <!-- Product-->
                  @if($products and $products->count() > 0)
                  @foreach($products as $product)
+                    <div class="col-xl-3 col-lg-6 col-md-4 col-sm-6 px-2 mb-3">
+
                  @include('cartzilla::components.product.product_box', ['product' => $product])
+                 </div>
                  @endforeach
                  @endif
                  <!-- Product-->

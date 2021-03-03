@@ -2,7 +2,7 @@
     <!-- Cart dropdown-->
     <div class="dropdown-menu dropdown-menu-end">
         <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
-            <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
+            <div  v-if="store.state.cart && store.state.cart.cart_items && store.state.cart.cart_items.length" style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
                 <div  v-for="item in store.state.cart.cart_items" class="widget-cart-item pb-2 border-bottom">
                     <button @click="removeCartItem(item.id)" class="btn-close text-danger" type="button" aria-label="Remove"><span aria-hidden="true">&times;</span></button>
                     <div class="d-flex align-items-center"><a class="flex-shrink-0" href="shop-single-v1.html"><img  :src="item.product.thumbnail

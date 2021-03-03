@@ -37,7 +37,10 @@
              <!-- Product-->
              @if($products and $products->count() > 0)
              @foreach($products as $product)
+                                 <div class="col-xl-3 col-lg-6 col-md-4 col-sm-6 px-2 mb-3">
+
              @include('cartzilla::components.product.product_box', ['product' => $product])
+            </div>
              @endforeach
              @endif
              <!-- Product-->
