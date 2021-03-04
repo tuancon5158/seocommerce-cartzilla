@@ -41,18 +41,20 @@
                     <div>
                         <div class="row mx-n2">
                             @foreach($products as $product)
-                            <div class="col-lg-4 col-6 px-0 px-sm-2 mb-sm-4">
+                            @if($loop->iteration < 4) <div class="col-lg-4 col-6 px-0 px-sm-2 mb-sm-4">
                                 @include('cartzilla::components.product.product_box', ['product' => $product])
-                            </div>
-                            @endforeach
                         </div>
+                        @endif
+
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 </section>
-<!-- Category (Men)-->
+{{-- <!-- Category (Men)-->
 <section class="container pt-lg-4 mb-4 mb-sm-5">
     <div class="row">
         <!-- Banner with controls-->
@@ -115,16 +117,17 @@
                     <div>
                         <div class="row mx-n2">
                             @foreach($products as $product)
-                            <div class="col-lg-4 col-6 px-0 px-sm-2 mb-sm-4">
-                                @include('cartzilla::components.product.product_box', ['product' => $product])
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                            {{ $product }}
+<div class="col-lg-4 col-6 px-0 px-sm-2 mb-sm-4">
+    @include('cartzilla::components.product.product_box', ['product' => $product])
+</div>
+@endforeach
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 <!-- Shop by brand-->
 <!-- Product widgets-->
@@ -164,7 +167,7 @@
         </div>
         <div class="col-md-4 col-sm-6 d-none d-lg-block"><a class="d-block" href="shop-grid-ls.html"><img class="d-block rounded-3" src="https://img.btdmp.com/10110/10110793/products/0x540@1605782878b748fb638d.jpeg" alt="Promo banner"></a></div>
     </div>
-</section>
+</section> --}}
 <!-- Blog + Instagram info cards-->
 <section class="container-fluid px-0">
     <div class="row g-0">

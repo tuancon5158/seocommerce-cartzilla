@@ -1,4 +1,8 @@
-<button id="icon-add-wislist-<?php echo json_encode($product->id); ?>" @click="addWishlist"  class="btn-wishlist btn-sm d-none" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="ci-heart"></i></button>
+<button id="icon-add-wislist-<?php echo json_encode($product->id); ?>" @click="addWishlist"  class="btn-wishlist btn-sm d-none" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist">
+<span v-if="isAdding" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+
+<i v-else class="ci-heart"></i>
+</button>
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
     const product = <?php echo json_encode($product); ?>;

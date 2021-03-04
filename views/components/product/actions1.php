@@ -1,6 +1,5 @@
-
- <div id="product-actions-<?php echo json_encode($product->id); ?>" class="col-lg-5 pt-4 pt-lg-0 d-nonenone">
-<div class="product-details ms-auto pb-3">
+<div id="product-actions-<?php echo json_encode($product->id); ?>" class="col-lg-5 pt-4 pt-lg-0 d-none">
+     <div class="product-details ms-auto pb-3">
          <div class="d-flex justify-content-between align-items-center mb-2"><a href="#reviews" data-scroll>
                  <div class="star-rating"><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i>
                  </div>
@@ -20,7 +19,7 @@
          <div class="" v-if="attribute.attribute_values && attribute.attribute_values.length" v-for="attribute in product.attributes">
              <div class="">
                  <div class="d-flex justify-content-between align-items-center pb-1">
-                     <label class="form-label" for="product-size">{{ attribute.name }}:</label><a v-if="attribute.guide" class="nav-link-style fs-sm" :href="`#guide-${attribute.id}`" data-bs-toggle="modal"><i class="ci-ruler lead align-middle me-1 mt-n1"></i>{{ attribute.name }}  guide</a>
+                     <label class="form-label" for="product-size">{{ attribute.name }}:</label><a v-if="attribute.guide" class="nav-link-style fs-sm" :href="`#guide-${attribute.id}`" data-bs-toggle="modal"><i class="ci-ruler lead align-middle me-1 mt-n1"></i>{{ attribute.name }} guide</a>
                  </div>
                  <!-- Radio -->
                  <div class="product-details">
@@ -55,98 +54,80 @@
 
              </div>
          </div>
-          <div>
-          <div v-for="custom in customs">
+         <div>
+             <div v-for="custom in customs">
 
-<!-- Custom -->
-<div class="form-group mb-grid-gutter">
-    <div>
-        <label class="text-capitalize" for="checkoutShippingCountry">
-            <strong>{{ custom.title }}</strong>:
-        </label>
-    </div>
+                 <!-- Custom -->
+                 <div class="form-group mb-grid-gutter">
+                     <div>
+                         <label class="text-capitalize" for="checkoutShippingCountry">
+                             <strong>{{ custom.title }}</strong>:
+                         </label>
+                     </div>
 
-    <!-- Custom text -->
-    <template v-if="custom.type == 'text' || custom.type == 'textarea'">
-        <input
-            :id="'custom-' + custom.id"
-            :name="'items[' + product.id + '][custom_' + custom.id + ']'"
-            class="form-control form-control-sm mb-3"
-            type="text"
-            :value="custom.default"
-            :placeholder="custom.title"
-        />
-    </template>
+                     <!-- Custom text -->
+                     <template v-if="custom.type == 'text' || custom.type == 'textarea'">
+                         <input :id="'custom-' + custom.id" :name="'items[' + product.id + '][custom_' + custom.id + ']'" class="form-control form-control-sm mb-3" type="text" :value="custom.default" :placeholder="custom.title" />
+                     </template>
 
-    <!-- Custom checkbox or radio -->
-    <div v-else-if="custom.type == 'radio' || custom.type == 'checkbox'" class="custom-control mb-3" :class="'custom-' + custom.type">
-        <div v-for="(label, value, index) in custom.options">
-            <input
-                class="custom-control-input"
-                :id="'custom-' + custom.id + '-' + index"
-                :name="'items[' + product.id + '][custom_' + custom.id + ']'"
-                :value="value"
-                :type="custom.type"
-                :checked="(!custom.default && index == 0) || custom.default == value ? true : false"
-            />
-            <label class="custom-control-label text-body text-nowrap" :for="'custom-' + custom.id + '-' + index">
-                {{ label }}
-            </label>
-        </div>
-    </div>
+                     <!-- Custom checkbox or radio -->
+                     <div v-else-if="custom.type == 'radio' || custom.type == 'checkbox'" class="custom-control mb-3" :class="'custom-' + custom.type">
+                         <div v-for="(label, value, index) in custom.options">
+                             <input class="custom-control-input" :id="'custom-' + custom.id + '-' + index" :name="'items[' + product.id + '][custom_' + custom.id + ']'" :value="value" :type="custom.type" :checked="(!custom.default && index == 0) || custom.default == value ? true : false" />
+                             <label class="custom-control-label text-body text-nowrap" :for="'custom-' + custom.id + '-' + index">
+                                 {{ label }}
+                             </label>
+                         </div>
+                     </div>
 
-    <!-- Custom select -->
-    <select v-else-if="custom.type == 'select'" class="custom-select mb-2" :name="'items[' + product.id + '][custom_' + custom.id + ']'">
-        <option
-            v-for="(label, value, index) in custom.options"
-            :value="value"
-            :selected="(!custom.default && index == 0) || custom.default == value ? true : false"
-        >
-            {{ label }}
-        </option>
-    </select>
+                     <!-- Custom select -->
+                     <select v-else-if="custom.type == 'select'" class="custom-select mb-2" :name="'items[' + product.id + '][custom_' + custom.id + ']'">
+                         <option v-for="(label, value, index) in custom.options" :value="value" :selected="(!custom.default && index == 0) || custom.default == value ? true : false">
+                             {{ label }}
+                         </option>
+                     </select>
 
-    <!-- Custom file -->
-    <div class="d-inline-block position-relative" v-else-if="custom.type == 'file'">
-        <input @change="fileInput" :id="'custom-' + custom.id" type="file" name="file" class="d-none">
-        <div @click="showSelectFile(custom.id)" class="d-inline-block p-1 rounded text-secondary position-relative" style="border: 1px dashed #e5e5e5; cursor: pointer;">
-            <!-- Icon -->
-            <svg v-if="!url['custom-' + custom.id]" width="80px" class="p-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-            <!-- Image -->
-            <img v-else :src="url['custom-' + custom.id]" width="80" height="80" style="object-fit: cover">
-            <!-- Loader -->
-            <div v-if="isUploading" class="position-absolute bg-dark text-center" style="left: 0; right: 0; bottom: 0; top: 0; opacity: 0.2; padding-top: 28px;">
-                <div class="spinner-border text-light" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
-        </div>
+                     <!-- Custom file -->
+                     <div class="d-inline-block position-relative" v-else-if="custom.type == 'file'">
+                         <input @change="fileInput" :id="'custom-' + custom.id" type="file" name="file" class="d-none">
+                         <div @click="showSelectFile(custom.id)" class="d-inline-block p-1 rounded text-secondary position-relative" style="border: 1px dashed #e5e5e5; cursor: pointer;">
+                             <!-- Icon -->
+                             <svg v-if="!url['custom-' + custom.id]" width="80px" class="p-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                             </svg>
+                             <!-- Image -->
+                             <img v-else :src="url['custom-' + custom.id]" width="80" height="80" style="object-fit: cover">
+                             <!-- Loader -->
+                             <div v-if="isUploading" class="position-absolute bg-dark text-center" style="left: 0; right: 0; bottom: 0; top: 0; opacity: 0.2; padding-top: 28px;">
+                                 <div class="spinner-border text-light" role="status">
+                                     <span class="sr-only">Loading...</span>
+                                 </div>
+                             </div>
+                         </div>
 
-        <!-- Remove image -->
-        <button v-if="url['custom-' + custom.id]" @click="removeFile('custom-' + custom.id)" type="button" class="close" aria-label="Close" style="right: -5px; top: -8px; outline: none;">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+                         <!-- Remove image -->
+                         <button v-if="url['custom-' + custom.id]" @click="removeFile('custom-' + custom.id)" type="button" class="close" aria-label="Close" style="right: -5px; top: -8px; outline: none;">
+                             <span aria-hidden="true">&times;</span>
+                         </button>
+                     </div>
 
-</div>
+                 </div>
 
-</div>
-          </div>
+             </div>
+         </div>
          <div class="mb-grid-gutter">
              <div class="mb-3 d-flex align-items-center">
-                 <select  v-model="quantity" class="form-select me-3" style="width: 5rem;">
+                 <select v-model="quantity" class="form-select me-3" style="width: 5rem;">
                      <option value="1">1</option>
                      <option value="2">2</option>
                      <option value="3">3</option>
                      <option value="4">4</option>
                      <option value="5">5</option>
                  </select>
-                 <button :disabled="isLoading || isUploading" @click="addToCart"  class="btn btn-primary btn-shadow d-block w-100" type="submit">
-                 <span v-if="!isLoading && !isUploading" >    Add to Cart <i  class="ci-cart fs-lg me-2"></i></span>
+                 <button :disabled="isLoading || isUploading" @click="addToCart" class="btn btn-primary btn-shadow d-block w-100" type="submit">
+                     <span v-if="!isLoading && !isUploading"> Add to Cart <i class="ci-cart fs-lg me-2"></i></span>
 
-                    <span v-else  class="sr-only">Loading...</span>
+                     <span v-else class="sr-only">Loading...</span>
                  </button>
              </div>
          </div>

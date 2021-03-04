@@ -121,18 +121,18 @@
 
                  <div class="row">
                      <div class="col-sm-6">
-                         <div class="mb-3">
+                         <div class="mb-3 form-group">
                              <label class="form-label" for="checkoutShippingCountry">Country <span class="text-danger">*</span></label>
-                             <select id="checkoutShippingCountry" name="shipping_country_code" class="form-select custom-select js-select2-search">
-                                 <option value="">-- Select country --</option>
-                                 @foreach($countries as $key => $country)
-                                 <option value="{{ $key }}" {{ old('shipping_country_code', $checkout?->shipping_address?->country_code) == $key ? 'selected' : '' }}>
-                                     {{ $country }}
-                                 </option>
-                                 @endforeach
-                             </select>
-                             {{-- <input class="form-control" name="shipping_first_name" value="{{ old('shipping_first_name', $checkout?->shipping_address?->first_name) }}" class="form-control" id="checkoutShippingFirstName" type="text" placeholder="First Name" required>
-                             <div class="invalid-feedback">Please enter First name!</div><small class="form-text text-muted"></small> --}}
+                             <div>
+                                 <select id="checkoutShippingCountry" name="shipping_country_code" class=" form-select custom-select js-select2-search">
+                                     <option value="">-- Select country --</option>
+                                     @foreach($countries as $key => $country)
+                                     <option value="{{ $key }}" {{ old('shipping_country_code', $checkout?->shipping_address?->country_code) == $key ? 'selected' : '' }}>
+                                         {{ $country }}
+                                     </option>
+                                     @endforeach
+                                 </select>
+                             </div>
                          </div>
                      </div>
                      <div class="col-sm-6">
@@ -169,11 +169,107 @@
                          <div class="invalid-feedback">Please enter Mobile Phone</div><small class="form-text text-muted"></small>
                      </div>
                  </div>
-                 <h6 class="mb-3 py-3 border-bottom">Billing address</h6>
-                 <div class="row">
+                 <h6 class="mb-5 py-4 border-bottom">Billing address</h6>
+                 <div class="row my-2">
                      <div class="col-sm-12">
-                         <input name="same_address" class="form-check-input" value="1" {{ old('same_address') === '1' ? 'checked' : '' }} type="checkbox" checked id="checkoutBillingAddress">
+                         <input name="same_address" data-bs-toggle="collapse" data-bs-target="#collapseAddress" aria-expanded="false" class="form-check-input" value="1" {{ old('same_address') === '1' ? 'checked' : '' }} type="checkbox" checked id="checkoutBillingAddress">
                          <label class="form-check-label" for="checkoutBillingAddress"> Use the same address?</label>
+                     </div>
+                 </div>
+                 <div class="collapse" id="collapseAddress">
+                     <div class="row">
+                         <div class="col-sm-6">
+                             <div class="mb-3">
+                                 <label class="form-label" for="checkoutBillingFirstName">First Name <span class="text-danger">*</span></label>
+                                 <input name="billing_first_name" value="{{ old('billing_first_name', $checkout?->billing_address?->first_name) }}" class="form-control" id="checkoutBillingFirstName" type="text" placeholder="First Name">
+                                 <div class="invalid-feedback">Please enter First name!</div><small class="form-text text-muted"></small>
+                             </div>
+                         </div>
+                         <div class="col-sm-6">
+                             <div class="mb-3">
+                                 <label class="form-label" for="checkoutBillingLastName">Last Name <span class="text-danger">*</span></label>
+                                 <input name="billing_last_name" value="{{ old('billing_last_name', $checkout?->billing_address?->last_name) }}" class="form-control" id="checkoutBillingLastName" type="text" placeholder="Last Name" />
+                                 <div class="invalid-feedback">Please enter Last name!</div><small class="form-text text-muted"></small>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-sm-12">
+                             <div class="mb-3">
+                                 <label class="form-label" for="checkoutBillingEmail">Email <span class="text-danger">*</span></label>
+                                 <input name="billing_email" value="{{ old('billing_email', $checkout?->billing_address?->email) }}" class="form-control" id="checkoutBillingEmail" type="email" placeholder="Email" />
+                                 <div class="invalid-feedback">Please provide valid email address!</div><small class="form-text text-muted"></small>
+                             </div>
+                         </div>
+
+                     </div>
+                     <div class="row">
+                         <div class="col-sm-12">
+                             <div class="mb-3">
+                                 <label class="form-label" for="checkoutBillingAddressOne">Address Line 1 <span class="text-danger">*</span></label>
+                                 <input name="billing_address1" value="{{ old('billing_address1', $checkout?->billing_address?->address1) }}" class="form-control" id="checkoutBillingAddressOne" type="text" placeholder="Address Line 1" />
+                                 <div class="invalid-feedback">Please enter Address Line 1</div><small class="form-text text-muted"></small>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-sm-12">
+                             <div class="mb-3">
+                                 <label class="form-label" for="checkoutBillingAddressTwo">Address Line 2 </label>
+                                 <input name="billing_address2" value="{{ old('billing_address2', $checkout?->billing_address?->address2) }}" class="form-control" id="checkoutBillingAddressTwo" type="text" placeholder="Address Line 2 (optional)">
+                             </div>
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="col-sm-6">
+                             <div class="mb-3 form-group">
+                                 <label class="form-label" for="checkoutBillingCountry">Country <span class="text-danger">*</span></label>
+                                 <div>
+                                     <select id="checkoutBillingCountry" name="billing_country_code" value="{{ old('billing_country_code', $checkout?->billing_address?->country_code) }}" class="form-select custom-select js-select2-search">
+                                         <option value="">-- Select country --</option>
+                                         @foreach($countries as $key => $country)
+                                         <option value="{{ $key }}">
+                                             {{ $country }}
+                                         </option>
+                                         @endforeach
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-sm-6">
+                             <div class="mb-3">
+                                 <label class="form-label" for="checkoutBillingState">State <span class="text-danger">*</span></label>
+                                 <input name="billing_state" value="{{ old('billing_state', $checkout?->billing_address?->state) }}" class="form-control" id="checkoutBillingState" type="text" placeholder="State" />
+                                 <div class="invalid-feedback">Please enter State</div><small class="form-text text-muted"></small>
+                             </div>
+                         </div>
+                     </div>
+
+
+                     <div class="row">
+                         <div class="col-sm-6">
+                             <div class="mb-3">
+                                 <label class="form-label" for="checkoutBillingTown">Town / City <span class="text-danger">*</span></label>
+                                 <input name="billing_city" value="{{ old('billing_city', $checkout?->billing_address?->city) }}" class="form-control" id="checkoutBillingTown" type="text" placeholder="Town / City" />
+                                 <div class="invalid-feedback">Please enter Town / City</div><small class="form-text text-muted"></small>
+
+                             </div>
+                         </div>
+                         <div class="col-sm-6">
+                             <div class="mb-3">
+                                 <label class="form-label" for="checkoutBillingZIP">ZIP / Postcode <span class="text-danger">*</span></label>
+                                 <input name="billing_zip" value="{{ old('billing_zip', $checkout?->billing_address?->zip) }}" class="form-control" id="checkoutBillingZIP" type="text" placeholder="ZIP / Postcode" />
+                                 <div class="invalid-feedback"> Please enter ZIP / Postcode</div><small class="form-text text-muted"></small>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-sm-12">
+                             <label class="form-label" for="checkoutBillingPhone">Mobile Phone <span class="text-danger">*</span></label>
+                             <input name="billing_phone" value="{{ old('billing_phone', $checkout?->billing_address?->phone) }}" class="form-control" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" />
+                             <div class="invalid-feedback">Please enter Mobile Phone</div><small class="form-text text-muted"></small>
+                         </div>
                      </div>
                  </div>
                  <h6 class="mb-3 py-3 border-bottom">Billing address</h6>
@@ -185,7 +281,7 @@
                                  <td>
                                      <div class="form-check">
                                          <input class=" form-check-input" id="checkoutShipping{{ $shipping->id }}" name="shipping_id" value="{{ $shipping->id }}" type="radio" {{ $loop->first ? 'checked' : '' }} />
-                                         <label class="form-check-input text-body text-nowrap" for="checkoutShipping{{ $shipping->id }}">
+                                         <label class="form-check-label " for="checkoutShipping{{ $shipping->id }}">
                                              {{ $shipping->title }}
                                          </label>
                                      </div>
@@ -256,8 +352,8 @@
                                      <form action="{{ route('removeDiscount') }}" method="post">
                                          @csrf
                                          {{ $cart->discount?->code }}
-                                         <button class="text-danger border-0 bg-transparent">
-                                             <i class="fe fe-x"></i>
+                                         <button class="btn btn-primary btn-icon">
+                                             <i class="ci-close"></i>
                                          </button>
                                      </form>
                                      @endif

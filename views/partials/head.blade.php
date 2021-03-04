@@ -32,4 +32,6 @@
 @include('cartzilla::partials.store')
 
 <!-- Inline css -->
+@include('cartzilla::partials.css')
+
 {!! \App\Models\Option::getValue('headCode') !!}
