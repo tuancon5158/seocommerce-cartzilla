@@ -12,9 +12,6 @@
 
 	?>
 
-<!-- BREADCRUMB -->
-{{-- @include('cartzilla::components.breadcrumb', ['links' => $breadcrumb]) --}}
-
 <!-- CONTENT -->
 <section class="pt-5 pb-10">
     <div class="container">

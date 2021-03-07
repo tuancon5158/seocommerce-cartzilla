@@ -80,8 +80,10 @@
              </div>
          </aside>
      </div>
-     <div v-else>
-     Emty
+     <div class="mt-10 mb-5" v-else>
+     <div class="alert alert-warning my-5" role="alert">
+     Your cart is empty!
+      </div>
      </div>
  </div>
 

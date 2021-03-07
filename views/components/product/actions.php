@@ -6,10 +6,8 @@
                  <span v-if="product.review" class="d-inline-block fs-sm text-body align-middle mt-1 ms-1"> {{ product.reviews.length }} Reviews</span>
              </a>
              <button class="btn-wishlist me-0 me-lg-n3" type="button" data-bs-toggle="tooltip" @click="addWishlist" title="Add to wishlist">
-             <span v-if="isAdding" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-
-<i v-else class="ci-heart"></i></button>
-
+                 <span v-if="isAdding" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                 <i v-else class="ci-heart"></i></button>
          </div>
          <div class="mb-3">
              <span class="h3 fw-normal text-accent me-1">{{ variantSelected ? variantSelected.price : product.price | currency }}</span>
@@ -53,13 +51,10 @@
                          </div>
                      </div>
                  </div>
-
-
              </div>
          </div>
          <div>
              <div v-for="custom in customs">
-
                  <!-- Custom -->
                  <div class="form-group mb-grid-gutter">
                      <div>
@@ -67,7 +62,6 @@
                              <strong>{{ custom.title }}</strong>:
                          </label>
                      </div>
-
                      <!-- Custom text -->
                      <template v-if="custom.type == 'text' || custom.type == 'textarea'">
                          <input :id="'custom-' + custom.id + `-<?php echo json_encode($product->id); ?>`" :name="'items[' + product.id + '][custom_' + custom.id + ']'" class="form-control form-control-sm mb-3" type="text" :value="custom.default" :placeholder="custom.title" />
@@ -82,7 +76,6 @@
                              </label>
                          </div>
                      </div>
-
                      <!-- Custom select -->
                      <select v-else-if="custom.type == 'select'" class="custom-select mb-2" :name="'items[' + product.id + '][custom_' + custom.id + ']'">
                          <option v-for="(label, value, index) in custom.options" :value="value" :selected="(!custom.default && index == 0) || custom.default == value ? true : false">
@@ -129,24 +122,37 @@
                  </select>
                  <button :disabled="isLoading || isUploading" @click="addToCart" class="btn btn-primary btn-shadow d-block w-100" type="submit">
                      <span v-if="!isLoading && !isUploading"> Add to Cart <i class="ci-cart fs-lg me-2"></i></span>
-                    <span v-else>
-                     <span  class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true">   </span>
-                     Loading...
-                    </span>
+                     <span v-else>
+                         <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"> </span>
+                         Loading...
+                     </span>
 
                  </button>
              </div>
+             <div>
+                <!-- <p v-if="productDetail.collections && productDetail.collections.length > 0" class="mb-3">
+                     <span class="">Collections:</span>
+                     <a v-for="collection in  product.collections" :href="`/collection${collection.slug}`" :title="collection.seo_title ? collection.title :'' }}" class="badge bg-dark">{{ collection.title }}</a>
+                 </p>
+                 <p v-if="productDetail.tags && productDetail.tags.length>0">
+                     <span class="text-muted">Tags:</span>
+                     <a v-for="tag in  product.tags" :href="`/tag/${tag.slug}`" :title="tag.title" class="badge bg-dark">{{ tag.title }}</a>
+                 </p> -->
+             </div>
          </div>
-         <label class="form-label d-inline-block align-middle my-2 me-3">Share:</label><a class="btn-share btn-twitter me-2 my-2" href="#"><i class="ci-twitter"></i>Twitter</a><a class="btn-share btn-instagram me-2 my-2" href="#"><i class="ci-instagram"></i>Instagram</a><a class="btn-share btn-facebook my-2" href="#"><i class="ci-facebook"></i>Facebook</a>
+
+         <label class="form-label d-inline-block align-middle my-2 me-3">Share:</label>
+         <a class="btn-share btn-twitter me-2 my-2" href="https://twitter.com/share?url={{ Request::url() }}&hashtag={{ str_replace('_', '', Illuminate\Support\Str::snake(\App\Models\Option::getValue('siteName'))) }}" target="_blank"><i class="ci-twitter"></i>Twitter</a>
+         <a class="btn-share btn-facebook my-2" href="https://www.facebook.com/sharer/sharer.php?u={{ Request::url() }}" target="_blank"><i class="ci-facebook"></i>Facebook</a>
+         <a class="btn-share btn-instagram me-2 my-2" href="https://pinterest.com/pin/create/button/?url={{ Request::url() }}" target="_blank"> <i class="fab fa-pinterest-p"></i>Instagram</a>
      </div>
  </div>
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
-    const product = <?php echo json_encode($product); ?>;
+    // const productDetail =
     const variants = <?php echo json_encode($product->variants); ?>;
     const customs = <?php echo json_encode($product->customs); ?>;
     const variantAttributeValues = <?php echo json_encode($product->variant_attribute_values); ?>;
-    console.log("$product", product);
     const actions = new Vue({
         el: `#product-actions-${product.id}`,
         data() {
@@ -164,16 +170,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 attributeTitle: null,
                 attributeContent: null,
                 isUploading: false,
+                productDetail:null,
                 url: {},
                 path: {}
             }
         },
         created() {
-          console.log(product,"ádá");
             if (product) {
                 this.product = product;
             }
+            // if(productDetail){
+            //   // this.productDetail = productDetail
+            //   console.log("productDetail",productDetail);
 
+            // }
             if (customs) {
                 this.customs = customs;
             }
@@ -189,8 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         mounted() {
 
-            // this.checkVariant();
-
+            this.checkVariant();
              $(`#product-actions-${product.id}`).removeClass('d-none');
 
         },

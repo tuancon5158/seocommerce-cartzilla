@@ -83,7 +83,7 @@
                     if (this.store.state.cart && this.store.state.cart.cart_items) {
                         // this.store.dispatch('loadCart', cart);
                         this.cartItems = this.store.state.cart.cart_items;
-                        console.log("this.cartItems",this.cartItems)
+                        // console.log("this.cartItems",this.cartItems)
                     }
                 }
             },

@@ -14,7 +14,7 @@
          <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
              <nav aria-label="breadcrumb">
                  <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-                     <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i class="ci-home"></i>Home</a></li>
+                     <li class="breadcrumb-item"><a class="text-nowrap" href="/"><i class="ci-home"></i>Home</a></li>
                      <li class="breadcrumb-item text-nowrap"><a href="#">Product</a>
                      </li>
                      {{-- <li class="breadcrumb-item text-nowrap active" aria-current="page">Product Page v.1</li> --}}
@@ -57,8 +57,14 @@
                          </div>
                      </div>
                  </div>
-                 @include('cartzilla::components.product.actions')
+                 @include('cartzilla::components.product.actions',['product_detail'=> $product] )
+                 <div class="form-group">
 
+                     <!-- Collections -->
+
+
+
+                 </div>
              </div>
          </div>
      </div>
@@ -88,9 +94,9 @@
  @include('cartzilla::components.product.review')
  @stop
  @section('head')
-<meta property="og:title" content="{{ $product->title }} - {{ App\Models\Option::getValue('siteName') }}" />
-<meta property="og:description" content="{{ $product->seo_description ?: $product->description }}" />
-<meta property="og:url" content="{{ url(Request::path()) }}" />
-<meta property="og:image" content="{{ App\Helpers\Image::getMediaUrl($product->thumbnail) }}" />
-@stop
+ <meta property="og:title" content="{{ $product->title }} - {{ App\Models\Option::getValue('siteName') }}" />
+ <meta property="og:description" content="{{ $product->seo_description ?: $product->description }}" />
+ <meta property="og:url" content="{{ url(Request::path()) }}" />
+ <meta property="og:image" content="{{ App\Helpers\Image::getMediaUrl($product->thumbnail) }}" />
+ @stop
 

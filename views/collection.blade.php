@@ -43,7 +43,9 @@
                 @if($collection->tags and $collection->tags->count() > 0)
                 @foreach($collection->tags as $tag)
 
-                @if($loop->index < 5) <li class="widget-list-item widget-filter-item"><a class="widget-list-link d-flex justify-content-between align-items-center" href="{{ route('tag', ['slug' => $tag->slug]) }}" title="{{ $tag->title }}"><span class="widget-filter-item-text"> {{ $children->title }}</span></a></li>
+                @if($loop->index < 5)
+
+                 <li class="widget-list-item widget-filter-item"><a class="widget-list-link d-flex justify-content-between align-items-center" href="{{ route('tag', ['slug' => $tag->slug]) }}" title="{{ $tag->title }}"><span class="widget-filter-item-text"> {{ $children->title }}</span></a></li>
                     @endif
                     @endforeach
                     <li class="widget-list-item widget-filter-item"><a class="widget-list-link d-flex justify-content-between align-items-center" href="{{ route('tags', ['collection_id' => $collection->id]) }}"><span class="widget-filter-item-text"> All Tags</span></a></li>

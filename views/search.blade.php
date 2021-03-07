@@ -9,12 +9,12 @@
         );
 
     ?>
- <section class="pt-7 pb-12 py-5">
+ <section class="pt-5 pb-10 py-5">
      <div class="container">
 
          <!-- Heading -->
          <h3 class="mb-4 text-center">
-             Search :  {{ Request::get('query') }}
+             Search : {{ Request::get('query') }}
          </h3>
 
          <div class="row justify-content-center mb-8">
@@ -37,14 +37,16 @@
              <!-- Product-->
              @if($products and $products->count() > 0)
              @foreach($products as $product)
-                                 <div class="col-xl-3 col-lg-6 col-md-4 col-sm-6 px-2 mb-3">
+             <div class="col-xl-3 col-lg-6 col-md-4 col-sm-6 px-2 mb-3">
 
-             @include('cartzilla::components.product.product_box', ['product' => $product])
-            </div>
+                 @include('cartzilla::components.product.product_box', ['product' => $product])
+             </div>
              @endforeach
              @endif
              <!-- Product-->
          </div>
+         @else
+         <div class="my-5  pb-10"></div>
 
          {{-- @include('baby::components.paginator', ['paginator' => $products]) --}}
 

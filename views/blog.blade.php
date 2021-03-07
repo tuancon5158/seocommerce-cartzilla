@@ -38,7 +38,8 @@
 
             </div>
         </div>
-        <div class="row">
+        <div class="row  pb-5">
+            @if($posts and $posts->count() > 0)
             @foreach($posts as $post)
             <div class="col-12 col-md-6 col-lg-4">
 
@@ -46,6 +47,11 @@
 
             </div>
             @endforeach
+            @else
+            <div class="alert alert-secondary my-5" role="alert">
+                No post found!
+            </div>
+            @endif
         </div>
         @if($posts->count() > 0)
         <div class="row">

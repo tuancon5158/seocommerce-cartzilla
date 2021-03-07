@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	                    },
 	                    success:function(data){
-                        console.log("data",data);
 	                        commit('changePrice');
+                          commit('setCart',data);
 	                    },
 	                    error:function(msg){
 	                        console.log(msg.responseJSON);
@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	                    },
 	                    success:function(data){
-                        console.log("data",data);
 	                        commit('updateCart', data);
 	                        commit('changePrice');
 	                    },
@@ -242,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     data: data,
                     cache : false,
-    				processData: false,
+    				        processData: false,
                     contentType: false,
                     success:function(data){
                         return data;
