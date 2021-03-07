@@ -57,7 +57,7 @@
                          </div>
                      </div>
                  </div>
-                 @include('cartzilla::components.product.actions1')
+                 @include('cartzilla::components.product.actions')
 
              </div>
          </div>

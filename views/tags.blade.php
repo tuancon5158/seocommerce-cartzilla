@@ -61,7 +61,7 @@
 					<h6 class="mb-5 text-center">Tags not found 😞</h6>
 
 					<!-- Button -->
-					<a href="{{ route('products') }}" class="btn btn-outline-dark">
+					<a href="{{ route('products') }}" class="btn btn-outline-primary">
 						All products
 					</a>
 

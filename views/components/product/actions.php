@@ -1,233 +1,154 @@
-<div id="product-actions" class="d-none">
+<div id="product-actions-<?php echo json_encode($product->id); ?>" class="col-lg-5 pt-4 pt-lg-0 d-none">
+     <div class="product-details ms-auto pb-3">
+         <div class="d-flex justify-content-between align-items-center mb-2"><a href="#reviews" data-scroll>
+                 <div class="star-rating"><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i>
+                 </div>
+                 <span v-if="product.review" class="d-inline-block fs-sm text-body align-middle mt-1 ms-1"> {{ product.reviews.length }} Reviews</span>
+             </a>
+             <button class="btn-wishlist me-0 me-lg-n3" type="button" data-bs-toggle="tooltip" @click="addWishlist" title="Add to wishlist">
+             <span v-if="isAdding" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 
-    <!-- Price -->
-    <div class="mb-0">
-        <span v-if="variantSelected && variantSelected.compare_at_price > 0" class="font-size-lg font-weight-bold text-gray-350 text-decoration-line-through">
-            {{ variantSelected.compare_at_price | currency }}
-        </span>
-        <span v-else-if="product && product.compare_at_price > 0" class="font-size-lg font-weight-bold text-gray-350 text-decoration-line-through">
-            {{ product.compare_at_price | currency }}
-        </span>
-        <span class="ml-1 font-size-h5 font-weight-bolder text-primary">
-            {{ variantSelected ? variantSelected.price : product.price | currency }}
-        </span>
-        <span class="font-size-sm ml-1">(In Stock)</span>
-    </div>
+<i v-else class="ci-heart"></i></button>
 
-    <!-- Description -->
-    <div v-if="product.description" class="text-gray-350 mb-5 mt-3">{{ product.description }}</div>
+         </div>
+         <div class="mb-3">
+             <span class="h3 fw-normal text-accent me-1">{{ variantSelected ? variantSelected.price : product.price | currency }}</span>
+             <del v-if="variantSelected && variantSelected.compare_at_price > 0" class="text-muted fs-lg me-3"> {{ variantSelected.compare_at_price | currency }} </del>
+             <del v-else-if="product && product.compare_at_price > 0" class="text-muted fs-lg me-3"> {{ product.compare_at_price | currency }} </del>
+             <span class="badge bg-danger badge-shadow align-middle mt-n2">Sale</span>
+         </div>
 
-    <div class="mb-7 mt-6">
-        <!-- {{ product.attributes }} -->
-        <!-- Attributes -->
-        <div v-if="attribute.attribute_values && attribute.attribute_values.length" v-for="attribute in product.attributes">
-            <!-- Label -->
-            <div class="mb-2">
-                <strong class="text-capitalize">{{ attribute.name }}</strong>:
-
-                <div v-if="attribute.guide" class="float-right">
-                    <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.53822 7.78217C9.35978 7.78217 10.8453 6.69132 10.8453 5.3549C10.8453 4.01832 9.36419 2.92747 7.53822 2.92747C5.71224 2.92747 4.23112 4.01832 4.23112 5.3549C4.23112 6.69132 5.71666 7.78217 7.53822 7.78217ZM7.53822 3.78967C8.86449 3.78967 9.96102 4.50547 9.96102 5.35474C9.96102 6.20417 8.85125 6.91982 7.53822 6.91982C6.22503 6.91982 5.11525 6.20417 5.11525 5.35474C5.11525 4.50547 6.22503 3.78536 7.53822 3.78536V3.78967Z" fill="#111111"/>
-                        <path d="M21.5579 9.83887H15.0321V5.35045C15.0321 2.40144 11.6676 0 7.51614 0C3.36449 0 0 2.40144 0 5.35045V10.6537C0 13.3699 2.85171 15.6119 6.52573 15.9525H6.60095C6.90591 15.9785 7.21544 16 7.52939 16H21.5579C21.8019 16 22 15.8069 22 15.5688V10.2699C22 10.032 21.8019 9.83887 21.5579 9.83887ZM7.53822 0.866498C11.1856 0.866498 14.1701 2.87997 14.1701 5.35491C14.1701 7.8297 11.2034 9.84317 7.53822 9.84317C3.87302 9.84317 0.906365 7.8297 0.906365 5.35476C0.906365 2.87997 3.8951 0.866498 7.53822 0.866498ZM14.1701 7.86845V9.83887H11.6057C12.6066 9.39647 13.4799 8.71957 14.1478 7.86845H14.1701ZM21.1157 15.1377H20.2314V12.956C20.2314 12.7181 20.0334 12.5248 19.7894 12.5248C19.5453 12.5248 19.3473 12.7179 19.3473 12.956V15.142H17.5787V13.9562C17.5787 13.7182 17.3807 13.5251 17.1366 13.5251C16.8925 13.5251 16.6944 13.7182 16.6944 13.9562V15.142H14.926V13.9562C14.926 13.7182 14.728 13.5251 14.4839 13.5251C14.2398 13.5251 14.0417 13.7182 14.0417 13.9562V15.142H12.2731V12.956C12.2731 12.7181 12.0751 12.5248 11.831 12.5248C11.5871 12.5248 11.3888 12.7179 11.3888 12.956V15.142H9.69564V13.9562C9.69564 13.7182 9.49743 13.5251 9.2535 13.5251C9.0094 13.5251 8.81135 13.7182 8.81135 13.9562V15.142H7.5379C7.36997 15.142 7.20645 15.142 7.04277 15.142V13.9562C7.04277 13.7182 6.84472 13.5251 6.60063 13.5251C6.35654 13.5251 6.15849 13.7182 6.15849 13.9562V15.0385C3.17448 14.6073 0.92844 12.8051 0.92844 10.6494V7.86845C2.1929 9.55424 4.6821 10.7011 7.56029 10.7011H21.1157V15.1377Z" fill="#111111"/>
-                    </svg>
-                    <a class="text-reset text-decoration-none ml-2" data-toggle="modal" href="#modalAttributeGuide" @click="showAttributeGuideModal(attribute.name, attribute.guide)">
-                        <strong>{{ attribute.name }} Guide</strong>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Radio -->
-            <div class="mb-2 border-bottom">
-                <template
-                    v-for="(attributeValue, index) in attribute.attribute_values"
-                    :key="index"
-                >
-                    <div class="custom-control custom-control-inline custom-control-size mb-2">
+         <div v-if="product.description" class="text-muted mb-5 mt-3">{{ product.description }}</div>
+         <div class="" :id="attribute-<?php echo json_encode($product->id); ?>" v-if="attribute.attribute_values && attribute.attribute_values.length" v-for="attribute in product.attributes">
+             <div class="">
+                 <div class="d-flex justify-content-between align-items-center pb-1">
+                     <label class="form-label" for="product-size">{{ attribute.name }}:</label><a v-if="attribute.guide" class="nav-link-style fs-sm" :href="`#guide-${attribute.id}-<?php echo json_encode($product->id); ?>`" data-bs-toggle="modal"><i class="ci-ruler lead align-middle me-1 mt-n1"></i>{{ attribute.name }} guide</a>
+                 </div>
+                 <!-- Radio -->
+                 <div class="product-details">
+                     <div class="mb-2 position-relative border-bottom mt-2">
+                         <template v-for="(attributeValue, index) in attribute.attribute_values" :key="index">
+                             <!-- <div class="custom-control custom-control-inline custom-control-size mb-2">
                         <input @change="checkVariant" :checked="index == 0" type="radio" class="custom-control-input" :name="'items[' + product.id + '][attribute_' + attribute.id + ']'" :id="'attributeRadio_' + attributeValue.id" :value="attributeValue.id" data-toggle="form-caption" data-target="#sizeCaption">
                         <label class="custom-control-label" :for="'attributeRadio_' + attributeValue.id">{{ attributeValue.value }}</label>
-                    </div>
-                </template>
-                <hr>
-            </div>
+                    </div> -->
+                             <div class="form-check form-option form-check-inline">
+                                 <input @change="checkVariant" :checked="index === 0" class="form-check-input" type="radio" :name="'items[' + product.id + '][attribute_' + attribute.id + ']'" :id="'attributeRadio_' + attributeValue.id + `_<?php echo json_encode($product->id); ?>`" :value="attributeValue.id" data-bs-label="colorOption">
+                                 <label class="form-option-label" :for="'attributeRadio_' + attributeValue.id + `_<?php echo json_encode($product->id); ?>`">{{ attributeValue.value }}</label>
+                             </div>
+                         </template>
+                     </div>
+                 </div>
+                 <div class="modal fade" :id="`guide-${attribute.id}-<?php echo json_encode($product->id); ?>`">
+                     <div class="modal-dialog modal-dialog-scrollable">
+                         <div class="modal-content" style="">
+                             <div class="modal-header bg-secondary">
+                                 <div> {{ attribute.name }} Guide</div>
+                                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                             </div>
+                             <div class="modal-body p-4">
+                                 <div class="tab-content" v-html="attribute.guide">
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
 
-        </div>
 
-        <!-- Custom data -->
-        <div v-for="custom in customs">
+             </div>
+         </div>
+         <div>
+             <div v-for="custom in customs">
 
-            <!-- Custom -->
-            <div class="form-group">
-                <div>
-                    <label class="text-capitalize" for="checkoutShippingCountry">
-                        <strong>{{ custom.title }}</strong>:
-                    </label>
-                </div>
+                 <!-- Custom -->
+                 <div class="form-group mb-grid-gutter">
+                     <div>
+                         <label class="text-capitalize" for="checkoutShippingCountry">
+                             <strong>{{ custom.title }}</strong>:
+                         </label>
+                     </div>
 
-                <!-- Custom text -->
-                <template v-if="custom.type == 'text' || custom.type == 'textarea'">
-                    <input
-                        :id="'custom-' + custom.id"
-                        :name="'items[' + product.id + '][custom_' + custom.id + ']'"
-                        class="form-control form-control-sm mb-3"
-                        type="text"
-                        :value="custom.default"
-                        :placeholder="custom.title"
-                    />
-                </template>
+                     <!-- Custom text -->
+                     <template v-if="custom.type == 'text' || custom.type == 'textarea'">
+                         <input :id="'custom-' + custom.id + `-<?php echo json_encode($product->id); ?>`" :name="'items[' + product.id + '][custom_' + custom.id + ']'" class="form-control form-control-sm mb-3" type="text" :value="custom.default" :placeholder="custom.title" />
+                     </template>
 
-                <!-- Custom checkbox or radio -->
-                <div v-else-if="custom.type == 'radio' || custom.type == 'checkbox'" class="custom-control mb-3" :class="'custom-' + custom.type">
-                    <div v-for="(label, value, index) in custom.options">
-                        <input
-                            class="custom-control-input"
-                            :id="'custom-' + custom.id + '-' + index"
-                            :name="'items[' + product.id + '][custom_' + custom.id + ']'"
-                            :value="value"
-                            :type="custom.type"
-                            :checked="(!custom.default && index == 0) || custom.default == value ? true : false"
-                        />
-                        <label class="custom-control-label text-body text-nowrap" :for="'custom-' + custom.id + '-' + index">
-                            {{ label }}
-                        </label>
-                    </div>
-                </div>
+                     <!-- Custom checkbox or radio -->
+                     <div v-else-if="custom.type == 'radio' || custom.type == 'checkbox'" class="custom-control mb-3" :class="'custom-' + custom.type">
+                         <div v-for="(label, value, index) in custom.options">
+                             <input class="custom-control-input" :id="'custom-' + custom.id + '-' + index" :name="'items[' + product.id + '][custom_' + custom.id + ']'" :value="value" :type="custom.type" :checked="(!custom.default && index == 0) || custom.default == value ? true : false" />
+                             <label class="custom-control-label text-body text-nowrap" :for="'custom-' + custom.id + '-' + index">
+                                 {{ label }}
+                             </label>
+                         </div>
+                     </div>
 
-                <!-- Custom select -->
-                <select v-else-if="custom.type == 'select'" class="custom-select mb-2" :name="'items[' + product.id + '][custom_' + custom.id + ']'">
-                    <option
-                        v-for="(label, value, index) in custom.options"
-                        :value="value"
-                        :selected="(!custom.default && index == 0) || custom.default == value ? true : false"
-                    >
-                        {{ label }}
-                    </option>
-                </select>
+                     <!-- Custom select -->
+                     <select v-else-if="custom.type == 'select'" class="custom-select mb-2" :name="'items[' + product.id + '][custom_' + custom.id + ']'">
+                         <option v-for="(label, value, index) in custom.options" :value="value" :selected="(!custom.default && index == 0) || custom.default == value ? true : false">
+                             {{ label }}
+                         </option>
+                     </select>
 
-                <!-- Custom file -->
-                <div class="d-inline-block position-relative" v-else-if="custom.type == 'file'">
-                    <input @change="fileInput" :id="'custom-' + custom.id" type="file" name="file" class="d-none">
-                    <div @click="showSelectFile(custom.id)" class="d-inline-block p-1 rounded text-secondary position-relative" style="border: 1px dashed #e5e5e5; cursor: pointer;">
-                        <!-- Icon -->
-                        <svg v-if="!url['custom-' + custom.id]" width="80px" class="p-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        <!-- Image -->
-                        <img v-else :src="url['custom-' + custom.id]" width="80" height="80" style="object-fit: cover">
-                        <!-- Loader -->
-                        <div v-if="isUploading" class="position-absolute bg-dark text-center" style="left: 0; right: 0; bottom: 0; top: 0; opacity: 0.2; padding-top: 28px;">
-                            <div class="spinner-border text-light" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>
-                    </div>
+                     <!-- Custom file -->
+                     <div class="d-inline-block position-relative" v-else-if="custom.type == 'file'">
+                         <input @change="fileInput" :id="'custom-' + custom.id" type="file" name="file" class="d-none">
+                         <div @click="showSelectFile(custom.id)" class="d-inline-block p-1 rounded text-secondary position-relative" style="border: 1px dashed #e5e5e5; cursor: pointer;">
+                             <!-- Icon -->
+                             <svg v-if="!url['custom-' + custom.id]" width="80px" class="p-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                             </svg>
+                             <!-- Image -->
+                             <img v-else :src="url['custom-' + custom.id]" width="80" height="80" style="object-fit: cover">
+                             <!-- Loader -->
+                             <div v-if="isUploading" class="position-absolute bg-dark text-center" style="left: 0; right: 0; bottom: 0; top: 0; opacity: 0.2; padding-top: 28px;">
+                                 <div class="spinner-border text-light" role="status">
+                                     <span class="sr-only">Loading...</span>
+                                 </div>
+                             </div>
+                         </div>
 
-                    <!-- Remove image -->
-                    <button v-if="url['custom-' + custom.id]" @click="removeFile('custom-' + custom.id)" type="button" class="close" aria-label="Close" style="right: -5px; top: -8px; outline: none;">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                         <!-- Remove image -->
+                         <button v-if="url['custom-' + custom.id]" @click="removeFile('custom-' + custom.id)" type="button" class="close" aria-label="Close" style="right: -5px; top: -8px; outline: none;">
+                             <span aria-hidden="true">&times;</span>
+                         </button>
+                     </div>
 
-            </div>
+                 </div>
 
-        </div>
-
-        <!-- Errors -->
-        <div v-if="errors" class="alert alert-danger mt-6" role="alert">
-            <ul v-if="errors.errors" class="mb-0">
-                <template v-for="error in errors.errors">
-                    <li v-for="message in error">
-                        {{ message }}
-                    </li>
-                </template>
-            </ul>
-            <span v-else-if="errors.message">{{ errors.message }}</span>
-            <span v-else>
-                Failed to communicate with the server, please report this error to us.
-            </span>
-        </div>
-
-        <div class="form-row">
-            <div class="col-12 col-lg-auto">
-
-                <!-- Quantity -->
-                <select v-model="quantity" class="custom-select mb-2">
-                    <option value="1" selected>1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-
-            </div>
-            <div class="col-12 col-lg">
-
-                <!-- Submit -->
-                <button :disabled="isLoading || isUploading" @click="addToCart" class="btn btn-block btn-primary mb-2">
-                    Add to Cart
-                    <i v-if="!isLoading && !isUploading" class="fe fe-shopping-cart ml-2"></i>
-                    <div v-else class="spinner-border spinner-border-sm align-middle ml-2" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </button>
-
-            </div>
-            <div class="col-12 col-lg-auto">
-
-                <!-- Wishlist -->
-                <button :disabled="isAdding" @click="addWishlist" class="btn btn-outline-dark btn-block mb-2" >
-                    <span v-if="!isAdding">
-                        Wishlist
-                        <i class="fe fe-heart ml-2"></i>
-                    </span>
+             </div>
+         </div>
+         <div class="mb-grid-gutter">
+             <div class="mb-3 d-flex align-items-center">
+                 <select v-model="quantity" class="form-select me-3" style="width: 5rem;">
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+                 </select>
+                 <button :disabled="isLoading || isUploading" @click="addToCart" class="btn btn-primary btn-shadow d-block w-100" type="submit">
+                     <span v-if="!isLoading && !isUploading"> Add to Cart <i class="ci-cart fs-lg me-2"></i></span>
                     <span v-else>
-                        Adding...
-                        <div class="spinner-border spinner-border-sm align-middle" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
+                     <span  class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true">   </span>
+                     Loading...
                     </span>
-                </button>
 
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Attribute guide modal -->
-    <div class="modal fade" id="modalAttributeGuide" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-
-          <!-- Close -->
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <i class="fe fe-x" aria-hidden="true"></i>
-          </button>
-
-          <!-- Header-->
-          <div class="modal-header line-height-fixed font-size-lg">
-            <strong class="mx-auto">
-                {{ attributeTitle }} Guide
-            </strong>
-          </div>
-
-          <!-- Body -->
-          <div class="modal-body border-bottom" v-html="attributeContent"></div>
-
-        </div>
-
-      </div>
-    </div>
-
-</div>
-
+                 </button>
+             </div>
+         </div>
+         <label class="form-label d-inline-block align-middle my-2 me-3">Share:</label><a class="btn-share btn-twitter me-2 my-2" href="#"><i class="ci-twitter"></i>Twitter</a><a class="btn-share btn-instagram me-2 my-2" href="#"><i class="ci-instagram"></i>Instagram</a><a class="btn-share btn-facebook my-2" href="#"><i class="ci-facebook"></i>Facebook</a>
+     </div>
+ </div>
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
     const product = <?php echo json_encode($product); ?>;
     const variants = <?php echo json_encode($product->variants); ?>;
     const customs = <?php echo json_encode($product->customs); ?>;
     const variantAttributeValues = <?php echo json_encode($product->variant_attribute_values); ?>;
-
+    console.log("$product", product);
     const actions = new Vue({
-        el: '#product-actions',
+        el: `#product-actions-${product.id}`,
         data() {
             return {
                 quantity: 1,
@@ -248,6 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         created() {
+          console.log(product,"ádá");
             if (product) {
                 this.product = product;
             }
@@ -267,9 +189,9 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         mounted() {
 
-            this.checkVariant();
+            // this.checkVariant();
 
-            $('#product-actions').removeClass('d-none');
+             $(`#product-actions-${product.id}`).removeClass('d-none');
 
         },
         methods: {

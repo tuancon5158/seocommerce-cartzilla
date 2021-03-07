@@ -1,4 +1,4 @@
-<div id="cart-icon" class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle" ><span class="navbar-tool-label">{{ cartItems.length }}</span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text" href="/cart"><small>My Cart</small>${{ store.state.cartTotalPrice }}</a>
+<div id="cart-icon" class="navbar-tool dropdown ms-3 d-none"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle" ><span class="navbar-tool-label">{{ cartItems.length }}</span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text" href="/cart"><small>My Cart</small>${{ store.state.cartTotalPrice }}</a>
     <!-- Cart dropdown-->
     <div class="dropdown-menu dropdown-menu-end">
         <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
@@ -42,6 +42,10 @@
 
                 }
             },
+            mounted(){
+              $('#cart-icon').removeClass('d-none');
+
+            },
 						created(){
               if (cart) {
                 this.store.dispatch('loadCart', cart);
@@ -67,8 +71,9 @@
 						 watch: {
                 'store.state.cart': function() {
                     if (this.store.state.cart && this.store.state.cart.cart_items) {
+                        // this.store.dispatch('loadCart', cart);
                         this.cartItems = this.store.state.cart.cart_items;
-                        console.log(" this.cartItems",  this.cartItems);
+                        console.log("this.cartItems",this.cartItems)
                     }
                 }
             },

@@ -11,12 +11,14 @@
 	?>
 
 <!-- BREADCRUMB -->
-@include('cartzilla::components.breadcrumb', ['links' => $breadcrumb])
 
 <!-- CONTENT -->
-<section class="pt-7 pb-12">
+<section class="pt-2 pb-12">
     <div class="container">
-        <div class="row">
+        <div class="d-flex justify-content-between align-items-center mt-5">
+            @include('cartzilla::components.breadcrumb', ['links' => $breadcrumb])
+        </div>
+        <div class="row  mb-5">
             <div class="col-12 mt-7">
 
                 <!-- Heading -->

@@ -5,10 +5,10 @@
             <div class="topbar-text dropdown d-md-none"><a class="topbar-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Useful links</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="tel:00331697720"><i class="ci-support text-muted me-2"></i>(00) 33 169 7720</a></li>
-                    <li><a class="dropdown-item" href="{{ route('tracking') }}"><i class="ci-location text-muted me-2"></i>Order tracking</a></li>
+                    <li><a class="dropdown-item" href="/tracking"><i class="ci-location text-muted me-2"></i>Order tracking</a></li>
                 </ul>
             </div>
-            <div class="topbar-text text-nowrap d-none d-md-inline-block"><i class="ci-support"></i><span class="text-muted me-1">Support</span><a class="topbar-link" href="tel:00331697720">(00) 33 169 7720</a></div>
+            <div class="topbar-text text-nowrap d-none d-md-inline-block"></div>
             <div class="tns-carousel tns-controls-static d-none d-md-block">
                 <div class="tns-carousel-inner" data-carousel-options="{&quot;mode&quot;: &quot;gallery&quot;, &quot;nav&quot;: false}">
                     <div class="topbar-text">Free shipping for order over $200</div>
@@ -16,19 +16,7 @@
                     <div class="topbar-text">Friendly 24/7 customer support</div>
                 </div>
             </div>
-            <div class="ms-3 text-nowrap"><a class="topbar-link me-4 d-none d-md-inline-block" href="order-tracking.html"><i class="ci-location"></i>Order tracking</a>
-                <div class="topbar-text dropdown disable-autohide"><a class="topbar-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><img class="me-2" src="/themes/cartzilla/assets/img/flags/en.png" width="20" alt="English">Eng / $</a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li class="dropdown-item">
-                            <select class="form-select form-select-sm">
-                                <option value="usd">$ USD</option>
-                            </select>
-                        </li>
-                        <li><a class="dropdown-item pb-1" href="#"><img class="me-2" src="/themes/cartzilla/assets/img/flags/fr.png" width="20" alt="Français">Français</a></li>
-                        <li><a class="dropdown-item pb-1" href="#"><img class="me-2" src="/themes/cartzilla/assets/img/flags/de.png" width="20" alt="Deutsch">Deutsch</a></li>
-                        <li><a class="dropdown-item" href="#"><img class="me-2" src="/themes/cartzilla/assets/img/flags/it.png" width="20" alt="Italiano">Italiano</a></li>
-                    </ul>
-                </div>
+            <div class="ms-3 text-nowrap"><a class="topbar-link me-4 d-none d-md-inline-block" href="/tracking"><i class="ci-location"></i>Order tracking</a>
             </div>
         </div>
     </div>
@@ -53,8 +41,7 @@
                         <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-menu"></i></div>
                     </a><a class="navbar-tool d-none d-lg-flex" href="{{ route('wishlist') }}"><span class="navbar-tool-tooltip">Wishlist</span>
                         <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
-                    </a><a class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">
-
+                    </a>
                         @include('cartzilla::components.navbar.cart_icon')
                 </div>
             </div>
@@ -63,26 +50,25 @@
             <div class="container">
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <!-- Search-->
-
                     <!-- Primary menu-->
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/products">All Product</a>
                         </li>
 
                         @foreach($collections->where('parent_id', null) as $collection)
-                        <li class="nav-item dropdown"><a class="nav-link " {{ ($collection->children and $collection->children->count()) ? "dropdown-toggle" : "" }} href="{{ route('collection', ['slug' => $collection->slug]) }}"> {{ $collection->title }}</a>
+                        <li class="nav-item dropdown"><a aria-haspopup="true" aria-expanded="false" class="nav-link " {{ ($collection->children and $collection->children->count()) ? "data-bs-toggle='dropdown'" : "" }} href="{{ route('collection', ['slug' => $collection->slug]) }}"> {{ $collection->title }}</a>
                             @if($collection->children and $collection->children->count())
                             <ul class="dropdown-menu">
                                 @foreach($collection->children as $childCollection)
                                 <li><a class="dropdown-item" href="{{ route('collection', ['slug' => $childCollection->slug]) }}"> {{ str_replace($collection->title, '', $childCollection->title) }}
                                     </a></li>
                                 @endforeach
-                                 <hr />
-                                    <li class="">
-                                        <a class="dropdown-item" href="{{ route('collection', ['slug' => $collection->slug]) }}">
-                                            Explore {{ $collection->title }}
-                                        </a>
-                                    </li>
+                                <hr />
+                                <li class="">
+                                    <a class="dropdown-item" href="{{ route('collection', ['slug' => $collection->slug]) }}">
+                                        Explore {{ $collection->title }}
+                                    </a>
+                                </li>
                             </ul>
                             @endif
                         </li>

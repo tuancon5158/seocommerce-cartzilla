@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	                        commit('setCart', data);
 	                        commit('changePrice');
 	                        $('#modalShoppingCart').modal('show');
-							console.log("thanh cong");
 	                    },
 	                    error:function(msg){
 	                        console.log(msg.responseJSON);

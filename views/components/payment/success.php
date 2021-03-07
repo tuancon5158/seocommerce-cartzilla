@@ -6,7 +6,7 @@
           <div class="card-body text-center">
             <h2 class="h4 pb-3">Thank you for your order!</h2>
             <p class="fs-sm mb-2">We've just sent you an order confirmation email. We will send you another email when your order is shipped..</p>
-            <p class="fs-sm mb-2"> <a href="<?php echo route('tracking'); ?>" class="btn btn-primary btn-lg btn-dark">Track Your Order</a></span></p>
+            <p class="fs-sm mb-2"> <a href="<?php echo route('tracking'); ?>" class="btn btn-primary btn-lg">Track Your Order</a></span></p>
           </div>
         </div>
       </div>

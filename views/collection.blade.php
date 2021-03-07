@@ -10,38 +10,47 @@
         <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-                    <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i class="ci-home"></i>Home</a></li>
-                    <li class="breadcrumb-item text-nowrap" href="collections"><a href="/collections">Collections</a>
+                    <li class="breadcrumb-item"><a class="text-nowrap" href="/"><i class="ci-home"></i>Home</a></li>
+                    <li class="breadcrumb-item text-nowrap" href="#"><a href="#">	{{ $collection->title }}</a>
                     </li>
-                    {{-- <li class="breadcrumb-item text-nowrap active" aria-current="page">Grid left sidebar</li> --}}
                 </ol>
             </nav>
         </div>
         <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
             <h1 class="h3 text-light mb-0">{{ $collection->seo_h1 ?: $collection->title }}</h1>
+
         </div>
     </div>
+    <div class="container pb-2">
+        @if($desc = $collection->seo_description ?: $collection->description)
+        <p class="text-light text-center">{{ $desc }}</p>
+        @endif
+    </div>
 </div>
-<div class="container pb-5 mb-2 mb-md-4">
+<div class="container pb-5 mb-2 mb-md-4 mt-5">
     <div class="row">
-        <ul class="nav nav-tabs mb-3 d-flex " role="tablist">
-            <li class="nav-item"><a class="nav-link active" href="#">View all</a></li>
+        <div class="d-flex justify-content-between align-items-center">
 
-            @foreach($collection->children as $children)
-            <li class="nav-item"><a class="nav-link" href="{{ route('collection', ['slug' => $children->slug]) }}"><span class="widget-filter-item-text"> {{ $children->title }}</span></a></li>
+            <ul class="nav nav-tabs mb-3 d-flex " role="tablist">
+                <li class="nav-item"><a class="nav-link active" href="#">View all</a></li>
 
-            {{-- <li class="widget-list-item widget-filter-item"><a class="widget-list-link d-flex justify-content-between align-items-center" href="{{ route('collection', ['slug' => $children->slug]) }}"><span class="widget-filter-item-text"> {{ $children->title }}</span></a></li> --}}
-            @endforeach
-            {{-- {{ $collection }} --}}
-            @if($collection->tags and $collection->tags->count() > 0)
-            @foreach($collection->tags as $tag)
+                @foreach($collection->children as $children)
+                <li class="nav-item"><a class="nav-link" href="{{ route('collection', ['slug' => $children->slug]) }}"><span class="widget-filter-item-text"> {{ $children->title }}</span></a></li>
 
-            @if($loop->index < 5) <li class="widget-list-item widget-filter-item"><a class="widget-list-link d-flex justify-content-between align-items-center" href="{{ route('tag', ['slug' => $tag->slug]) }}" title="{{ $tag->title }}"><span class="widget-filter-item-text"> {{ $children->title }}</span></a></li>
-                @endif
+                {{-- <li class="widget-list-item widget-filter-item"><a class="widget-list-link d-flex justify-content-between align-items-center" href="{{ route('collection', ['slug' => $children->slug]) }}"><span class="widget-filter-item-text"> {{ $children->title }}</span></a></li> --}}
                 @endforeach
-                <li class="widget-list-item widget-filter-item"><a class="widget-list-link d-flex justify-content-between align-items-center" href="{{ route('tags', ['collection_id' => $collection->id]) }}"><span class="widget-filter-item-text"> All Tags</span></a></li>
-                @endif
-        </ul>
+                {{-- {{ $collection }} --}}
+                @if($collection->tags and $collection->tags->count() > 0)
+                @foreach($collection->tags as $tag)
+
+                @if($loop->index < 5) <li class="widget-list-item widget-filter-item"><a class="widget-list-link d-flex justify-content-between align-items-center" href="{{ route('tag', ['slug' => $tag->slug]) }}" title="{{ $tag->title }}"><span class="widget-filter-item-text"> {{ $children->title }}</span></a></li>
+                    @endif
+                    @endforeach
+                    <li class="widget-list-item widget-filter-item"><a class="widget-list-link d-flex justify-content-between align-items-center" href="{{ route('tags', ['collection_id' => $collection->id]) }}"><span class="widget-filter-item-text"> All Tags</span></a></li>
+                    @endif
+            </ul>
+            @include('cartzilla::components.sort')
+        </div>
 
     </div>
     <div class="row">
@@ -63,21 +72,33 @@
             <div class="row mx-n2">
                 <!-- Product-->
                 @foreach($products as $product)
-                @include('cartzilla::components.product.custom', ['product' => $product])
+                <div class="col-md-3 col-sm-6 px-2 mb-4">
+                    @include('cartzilla::components.product.custom', ['product' => $product])
+                </div>
                 @endforeach
                 <!-- Product-->
 
             </div>
+
+
+
+
             <!-- Banner-->
         </section>
 
     </div>
-    <div class="row">
+    <div class="row  mb-5">
         <div class="col-12">
             <!-- Pagination -->
             @include('cartzilla::components.paginator', ['paginator' => $products])
         </div>
     </div>
+    @if($collection->content)
+    <hr />
+    <div class="row mt-5">
+        {!! $collection->content !!}
+    </div>
+    @endif
 </div>
 @stop
 @section('head')

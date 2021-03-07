@@ -1,4 +1,4 @@
-<div id="cart-items" class="container pb-5 mb-2 mb-md-4">
+<div id="cart-items" class="container pb-5 mb-2 mb-md-4 d-none">
      <div  v-if="store.state.cart && store.state.cart.cart_items && store.state.cart.cart_items.length" class="row">
          <!-- List of items-->
          <section class="col-lg-8">
@@ -21,6 +21,22 @@
                          <h3 class="product-title fs-base mb-2"><a  :href="'/products/' + item.product.slug">{{ item.product.title }}</a></h3>
                          <div  class="fs-lg text-accent pt-2">	<span class="ml-auto">{{ item.variant.price | currency }}</span></div>
                          	<!-- Variant data -->
+                           <div v-if="item.variant.title" class="font-size-sm">
+                          {{ item.variant.title }}
+                        </div>
+
+                        <!-- Custom data -->
+                        <div v-if="item.custom_data" class="font-size-sm">
+                          <div v-for="(custom, title) in item.custom_data">
+                            {{ title }}:
+                            <div v-if="detectImageLink(custom.value)">
+                              <img width="70" :src="storageBasePath + custom.value">
+                            </div>
+                            <span v-else>
+                              {{ custom.value }}
+                            </span>
+                          </div>
+                        </div>
                          <div class="fs-sm"><span class="text-muted me-2">	{{ item.variant.title }}</div>
                          <!-- <div class="fs-sm"><span class="text-muted me-2">Color:</span>White &amp; Blue</div> -->
                      </div>
@@ -49,8 +65,8 @@
                      <div class="d-flex mb-4 pb-3 border-bottom justify-content-between">
                          <h2 class="h6 mb-3 pb-1">Discount Code</h2>
                          <button @click="removeDiscount" class="text-danger border-0 bg-transparent">
-							<i class="fe fe-x"></i>
-						</button>
+                      <i class="fe fe-x"></i>
+                    </button>
                      </div>
                      <div class="d-flex mb-4 pb-3 border-bottom justify-content-between">
                          <h2 class="h6 mb-3 pb-1">Total</h2>
@@ -89,7 +105,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 storageBasePath: storageBasePath
             }
         },
+        mounted(){
+          $('#cart-items').removeClass('d-none');
 
+        },
         created() {
         	if (cart) {
         		this.cart = cart;
