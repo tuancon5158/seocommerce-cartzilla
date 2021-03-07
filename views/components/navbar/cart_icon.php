@@ -5,9 +5,12 @@
             <div  v-if="store.state.cart && store.state.cart.cart_items && store.state.cart.cart_items.length" style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
                 <div  v-for="item in store.state.cart.cart_items" class="widget-cart-item pb-2 border-bottom">
                     <button @click="removeCartItem(item.id)" class="btn-close text-danger" type="button" aria-label="Remove"><span aria-hidden="true">&times;</span></button>
-                    <div class="d-flex align-items-center"><a class="flex-shrink-0" href="shop-single-v1.html"><img  :src="item.product.thumbnail
+                    <div class="d-flex align-items-center"><a class="flex-shrink-0" :href="`/products/${item.product.id}`">
+                    <img v-if="item.product.thumbnail && item.product.thumbnail.url" :src="item.product.thumbnail.url" alt="" srcset="">
+                    <img v-else  :src="item.product.thumbnail
 											? '/resize/150/' + item.product.thumbnail.id + '/' + item.product.thumbnail.file_name
-											: '/themes/baby/assets/img/default.jpg'" alt="..." alt="Product" width="64" alt="Product"></a>
+											: '/themes/baby/assets/img/default.jpg'" alt="..." alt="Product" width="64" alt="Product">
+                      </a>
                         <div class="ps-2">
                             <h6 class="widget-product-title"><a :href="`/products/${item.product.slug}`">{{ item.product.title }}</a></h6>
                             <div class="widget-product-meta"><span class="text-accent me-2">{{ item.variant.price | currency }}</span><span class="text-muted">x {{ item.quantity }}</span></div>
@@ -58,6 +61,13 @@
         	}
 						},
             methods:{
+              detectImageLink(url) {
+            	if (url.startsWith('tmp/') && (url.match(/\.(jpeg|jpg|gif|png)$/) != null)) {
+            		return true;
+            	}
+
+            	return false;
+            },
               async removeCartItem(id) {
             	const data = {
             		id: id

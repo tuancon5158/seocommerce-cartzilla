@@ -41,7 +41,7 @@
                     <div>
                         <div class="row mx-n2">
                             @foreach($products as $product)
-                            @if($loop->iteration < 4) <div class="col-lg-4 col-6 px-0 px-sm-2 mb-sm-4">
+                            @if($loop->iteration < 4) <div class="col-lg-4 col-sm-6 col-12 px-0 px-sm-2 mb-sm-4">
                                 @include('cartzilla::components.product.product_box', ['product' => $product])
                         </div>
                         @endif

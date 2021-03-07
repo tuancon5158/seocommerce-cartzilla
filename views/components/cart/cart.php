@@ -3,10 +3,10 @@
          <!-- List of items-->
          <section class="col-lg-8">
              <div class="d-flex justify-content-between align-items-center pt-3 pb-4 pb-sm-5 mt-1">
-                 <h2 class="h6 text-light mb-0">Products</h2><a class="btn btn-outline-primary btn-sm ps-2" href="/products"><i class="ci-arrow-left me-2"></i>Continue shopping</a>
+                 <h2 class="h6 text-light mb-0"></h2><a class="btn btn-outline-primary btn-sm ps-2" href="/products"><i class="ci-arrow-left me-2"></i>Continue shopping</a>
              </div>
              <!-- Item-->
-             <strong class="mx-auto">Your Cart ({{ store.state.cart && store.state.cart.cart_items ? store.state.cart.cart_items.length : 0 }})</strong>
+             <strong class="mx-auto">Items ({{ store.state.cart && store.state.cart.cart_items ? store.state.cart.cart_items.length : 0 }})</strong>
 
              <div  v-for="item in store.state.cart.cart_items" class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
                  <div class="d-block d-sm-flex align-items-center text-center text-sm-start"><a class="d-inline-block flex-shrink-0 mx-auto me-sm-4" href="shop-single-v1.html"><img width="160px" :src="

@@ -87,5 +87,10 @@
  @endif
  @include('cartzilla::components.product.review')
  @stop
-
+ @section('head')
+<meta property="og:title" content="{{ $product->title }} - {{ App\Models\Option::getValue('siteName') }}" />
+<meta property="og:description" content="{{ $product->seo_description ?: $product->description }}" />
+<meta property="og:url" content="{{ url(Request::path()) }}" />
+<meta property="og:image" content="{{ App\Helpers\Image::getMediaUrl($product->thumbnail) }}" />
+@stop
 

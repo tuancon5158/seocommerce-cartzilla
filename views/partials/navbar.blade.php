@@ -4,7 +4,6 @@
         <div class="container">
             <div class="topbar-text dropdown d-md-none"><a class="topbar-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Useful links</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="tel:00331697720"><i class="ci-support text-muted me-2"></i>(00) 33 169 7720</a></li>
                     <li><a class="dropdown-item" href="/tracking"><i class="ci-location text-muted me-2"></i>Order tracking</a></li>
                 </ul>
             </div>
