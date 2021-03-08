@@ -21,19 +21,19 @@
 	?>
 
 <!-- BREADCRUMB -->
-@include('cartzilla::components.breadcrumb', ['links' => $breadcrumb])
 
 <div class="page-title-overlap bg-dark pt-4">
     <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
         <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-                    <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i class="ci-home"></i>Home</a></li>
-                    <li class="breadcrumb-item text-nowrap"><a href="shop-grid-ls.html">Shop</a>
+                    <li class="breadcrumb-item"><a class="text-nowrap" href="/"><i class="ci-home"></i>Home</a></li>
+                    <li class="breadcrumb-item text-nowrap"><a href="/checkout">Checkout Information</a>
                     </li>
-                    <li class="breadcrumb-item text-nowrap active" aria-current="page">Checkout</li>
+                    <li class="breadcrumb-item text-nowrap active" aria-current="page">Checkout Payment</li>
                 </ol>
             </nav>
+
         </div>
         <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
             <h1 class="h3 text-light mb-0">Shipping & payment</h1>
@@ -61,7 +61,7 @@
                 <h2 class="h6 pb-3 mb-2">Payment method</h2>
                 <div class="row">
 
-                    <div class="col-12 col-md-7">
+                    <div class="col-12 col-md-12">
 
                         <!-- Heading -->
 
@@ -77,7 +77,7 @@
                                     <input class="form-check-input" id="checkoutPaymentPaypal" name="payment_gateway_id" type="radio" value="{{ $paymentGateway->id }}" {{ $loop->first ? 'checked' : '' }}>
 
                                     <!-- Label -->
-                                    <label class="form-check-input font-size-sm text-body text-nowrap" for="checkoutPaymentPaypal">
+                                    <label class="form-check-label  font-size-sm text-body text-nowrap" for="checkoutPaymentPaypal">
                                         {{ $paymentGateway->title }}
                                     </label>
 

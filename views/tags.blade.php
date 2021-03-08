@@ -37,7 +37,6 @@
 
 								<!-- Image -->
 								<img src="{{ \App\Helpers\Image::resizeMedia(200, $tag->thumbnail) }}" alt="{{ $tag->title }}" class="card-img-top">
-
 							</a>
 						</div>
 

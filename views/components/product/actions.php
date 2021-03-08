@@ -150,6 +150,7 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
     // const productDetail =
+    const product = <?php echo json_encode($product); ?>;
     const variants = <?php echo json_encode($product->variants); ?>;
     const customs = <?php echo json_encode($product->customs); ?>;
     const variantAttributeValues = <?php echo json_encode($product->variant_attribute_values); ?>;
@@ -199,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         mounted() {
 
-            this.checkVariant();
+            // this.checkVariant();
              $(`#product-actions-${product.id}`).removeClass('d-none');
 
         },

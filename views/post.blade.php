@@ -78,56 +78,56 @@
     </section>
 
     <!-- FOOTER -->
-    {{-- <footer class="pt-0">
-			<div class="container">
-				@if($categories = $post->categories and $categories->count())
-				<div class="row mb-5">
-					<div class="col-12 text-center">
-						@foreach($categories as $category)
-						<a class="btn btn-xs btn-outline-border font-weight-normal text-gray-500 mr-3 mb-3" href="{{ route('blog', ['slug' => $category->slug]) }}">
-    {{ $category->title }}
-    </a>
-    @endforeach
-    </div>
-    </div>
-    @endif
-    <div class="row">
-        <div class="col-12 text-center">
-
-            <!-- Buttons -->
-            <a class="btn btn-facebook mr-3 mb-3" href="https://www.facebook.com/sharer/sharer.php?u={{ Request::url() }}" target="_blank">
-                <i class="fab fa-facebook-f mr-2"></i> Share on Facebook
-            </a>
-            <a class="btn btn-twitter mr-3 mb-3" href="https://twitter.com/share?url={{ Request::url() }}&hashtag={{ str_replace('_', '', Illuminate\Support\Str::snake(\App\Models\Option::getValue('siteName'))) }}" target="_blank">
-                <i class="fab fa-twitter mr-2"></i> Share on Twitter
-            </a>
-            <a class="btn btn-pinterest mr-3 mb-3" href="https://pinterest.com/pin/create/button/?url={{ Request::url() }}" target="_blank">
-                <i class="fab fa-pinterest-p mr-2"></i> Share on Pinterest
-            </a>
-        </div>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="col-6">
-            @if($previousPost = App\Models\Post::where('created_at', '<', $post->created_at)->first())
-                <strong>Previous post</strong>
-                <p><a href="{{ route('post', ['slug' => $previousPost->slug]) }}">{{ $previousPost->title }}</a></p>
-                @endif
-        </div>
-        <div class="col-6 text-right">
-            @if($nextPost = App\Models\Post::where('created_at', '>', $post->created_at)->first())
-            <strong>Next post</strong>
-            <p><a href="{{ route('post', ['slug' => $nextPost->slug]) }}">{{ $nextPost->title }}</a></p>
+    <footer class="pt-0">
+        <div class="container">
+            @if($categories = $post->categories and $categories->count())
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    @foreach($categories as $category)
+                    <a class="btn btn-xs btn-outline-border font-weight-normal text-gray-500 mr-3 mb-3" href="{{ route('blog', ['slug' => $category->slug]) }}">
+                        {{ $category->title }}
+                    </a>
+                    @endforeach
+                </div>
+            </div>
             @endif
+            <div class="row">
+                <div class="col-12 text-center">
+
+                    <!-- Buttons -->
+                    <a class="btn btn-facebook mr-3 mb-3" href="https://www.facebook.com/sharer/sharer.php?u={{ Request::url() }}" target="_blank">
+                        <i class="fab fa-facebook-f mr-2"></i> Share on Facebook
+                    </a>
+                    <a class="btn btn-twitter mr-3 mb-3" href="https://twitter.com/share?url={{ Request::url() }}&hashtag={{ str_replace('_', '', Illuminate\Support\Str::snake(\App\Models\Option::getValue('siteName'))) }}" target="_blank">
+                        <i class="fab fa-twitter mr-2"></i> Share on Twitter
+                    </a>
+                    <a class="btn btn-pinterest mr-3 mb-3" href="https://pinterest.com/pin/create/button/?url={{ Request::url() }}" target="_blank">
+                        <i class="fab fa-pinterest-p mr-2"></i> Share on Pinterest
+                    </a>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-6">
+                    @if($previousPost = App\Models\Post::where('created_at', '<', $post->created_at)->first())
+                        <strong>Previous post</strong>
+                        <p><a href="{{ route('post', ['slug' => $previousPost->slug]) }}">{{ $previousPost->title }}</a></p>
+                        @endif
+                </div>
+                <div class="col-6 text-end">
+                    @if($nextPost = App\Models\Post::where('created_at', '>', $post->created_at)->first())
+                    <strong>Next post</strong>
+                    <p><a href="{{ route('post', ['slug' => $nextPost->slug]) }}">{{ $nextPost->title }}</a></p>
+                    @endif
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
-    </footer> --}}
+    </footer>
 
 </article>
 
 <!-- LATEST POSTS -->
-{{-- @include('cartzilla::components.post.latest_posts') --}}
+@include('cartzilla::components.post.latest_posts')
 
 @stop
 

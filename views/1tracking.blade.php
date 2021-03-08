@@ -1,39 +1,28 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@extends('cartzilla::layouts.default')
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+@section('content')
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+<?php
+		$breadcrumb = array(
+			[
+				"text" => "Order Tracking"
+			]
+		);
+	?>
 
-    <!-- Styles -->
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<!-- BREADCRUMB -->
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-</head>
-<body class="bg-light">
-    <div class="navbar navbar-expand-md fixed-top navbar-dark bg-dark text-center d-flex justify-content-center">
-        <span class="text-light"> Your affiliate ID is <strong>{{ \Auth::user()->id }}</strong>, simply append <strong>?_r={{ \Auth::user()->id }}</strong> to any of our URLs to set you as the referrer.
-        </span>
-    </div>
-    <nav class="navbar navbar-expand-md fixed navbar-light bg-light text-center d-flex justify-content-center">
-        ádas <span class="text-light">Order Tracking</span>
-    </nav>
+<!-- HEADER -->
+<section class="pt-5 pb-10">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
 
-            {{-- @include('cartzilla::components.breadcrumb', ['links' => $breadcrumb]) --}}
+            @include('cartzilla::components.breadcrumb', ['links' => $breadcrumb])
         </div>
         <!-- Heading -->
-        <h3 class="mb-10 mt-5 text-center">Order Tracking</h3>
+        <h3 class="mb-10 text-center">Order Tracking</h3>
 
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center">
 
             @if($order)
             <div class="col-12 col-md-6">
@@ -195,13 +184,13 @@
                                 <div class="col">
 
                                     <!-- Input -->
-                                    <input name="message" class="form-control form-control" id="messageTracking" type="text" placeholder="Message..." />
+                                    <input name="message" class="form-control form-control-sm" id="messageTracking" type="text" placeholder="Message..." />
 
                                 </div>
                                 <div class="col-auto">
 
                                     <!-- Button -->
-                                    <button class="btn  btn-primary" type="submit">
+                                    <button class="btn btn-sm btn-primary" type="submit">
                                         Send message
                                     </button>
 
@@ -250,19 +239,12 @@
             </div>
 
             @else
+
             <!-- Search -->
             <div class="col-md-8 col-lg-5">
+
                 <!-- Errors -->
-                {{-- @include('cartzilla::components.errors', ['errors' => $errors]) --}}
-                @if(isset($errors) and $errors->count() > 0)
-                <div class="alert alert-danger" role="alert">
-                    <ul class="mb-0">
-                        @foreach((array) $errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
+                @include('cartzilla::components.errors', ['errors' => $errors])
 
                 <!-- Success -->
                 @if(session('success'))
@@ -290,5 +272,6 @@
 
         </div>
     </div>
-</body>
-</html>
+</section>
+
+@stop

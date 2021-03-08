@@ -5,5 +5,9 @@
       <div class="d-flex align-items-center fs-sm"><a class="blog-entry-meta-link" href="{{ route('post', ['slug' => $post->slug]) }}">
 
               <div class="fs-sm text-muted"> <a href="{{ route('post', ['slug' => $post->slug]) }}" class='blog-entry-meta-link'>{{ $post->description }}</a></div>
+
+      </div>
+      <div>
+          <a href="{{ route('post', ['slug' => $post->slug]) }}" class='blog-entry-meta-link' class='blog-entry-meta-link fw-medium'>[Read more]</a>
       </div>
   </article>

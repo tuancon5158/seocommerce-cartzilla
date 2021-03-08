@@ -21,9 +21,7 @@
                  <ul class="nav nav-tabs mb-3 d-flex " role="tablist">
                      <li class="nav-item"><a class="nav-link active" href="#">All</a></li>
                      @foreach(App\Models\Tag::whereNull('parent_id')->where('visibility', 'public')->orderBy('updated_at', 'desc')->take(5)->get() as $tag)
-                     <a class="nav-link" href="{{ route('tag', ['slug' => $tag->slug]) }}" title="{{ $tag->title }}">{{ $tag->title }}</a>
-                     <li class="nav-item"><a class="nav-link" ref="{{ route('tag', ['slug' => $tag->slug]) }}" title="{{ $tag->title }}"><span class="widget-filter-item-text"> {{ $tag->title }}</span></a></li>
-
+                     <li class="nav-item"><a class="nav-link " href="{{ route('tag', ['slug' => $tag->slug]) }}" title="{{ $tag->title }}">{{ $tag->title }}</a></li>
                      @endforeach
                      <a class="nav-link" href="{{ route('tags') }}">All Tags</a>
                  </ul>
