@@ -59,11 +59,6 @@
                  </div>
                  @include('cartzilla::components.product.actions',['product_detail'=> $product] )
                  <div class="form-group">
-
-                     <!-- Collections -->
-
-
-
                  </div>
              </div>
          </div>

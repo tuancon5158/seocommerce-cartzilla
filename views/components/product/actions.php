@@ -130,14 +130,14 @@
                  </button>
              </div>
              <div>
-                <!-- <p v-if="productDetail.collections && productDetail.collections.length > 0" class="mb-3">
+                <p v-if="collections && collections.length > 0" class="mb-3">
                      <span class="">Collections:</span>
-                     <a v-for="collection in  product.collections" :href="`/collection${collection.slug}`" :title="collection.seo_title ? collection.title :'' }}" class="badge bg-dark">{{ collection.title }}</a>
+                     <a  v-for="collection in  collections" :href="`/collections/${collection.slug}`" :title="collection.seo_title ? collection.title :''" class="badge bg-dark mx-1">{{ collection.title }}</a>
                  </p>
-                 <p v-if="productDetail.tags && productDetail.tags.length>0">
+                 <p v-if="tags && tags.length>0">
                      <span class="text-muted">Tags:</span>
-                     <a v-for="tag in  product.tags" :href="`/tag/${tag.slug}`" :title="tag.title" class="badge bg-dark">{{ tag.title }}</a>
-                 </p> -->
+                     <a v-for="tag in  tags" :href="`/tags/${tag.slug}`" :title="tag.title" class="badge bg-dark mx-1">{{ tag.title }}</a>
+                 </p>
              </div>
          </div>
 
@@ -154,6 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const variants = <?php echo json_encode($product->variants); ?>;
     const customs = <?php echo json_encode($product->customs); ?>;
     const variantAttributeValues = <?php echo json_encode($product->variant_attribute_values); ?>;
+    const  collections = <?php echo json_encode(@$product->collections); ?>;
+    const  tags = <?php echo json_encode(@$product->tags); ?>;
+
+    console.log("tags",tags);
     const actions = new Vue({
         el: `#product-actions-${product.id}`,
         data() {
@@ -172,6 +176,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 attributeContent: null,
                 isUploading: false,
                 productDetail:null,
+                collections:[],
+                tags:[],
                 url: {},
                 path: {}
             }
@@ -180,11 +186,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (product) {
                 this.product = product;
             }
-            // if(productDetail){
-            //   // this.productDetail = productDetail
-            //   console.log("productDetail",productDetail);
+            if(collections){
+               this.collections = collections
 
-            // }
+            }
+            if(tags){
+               this.tags = tags
+
+            }
             if (customs) {
                 this.customs = customs;
             }

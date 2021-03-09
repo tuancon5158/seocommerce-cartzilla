@@ -5,9 +5,9 @@
             <div  v-if="store.state.cart && store.state.cart.cart_items && store.state.cart.cart_items.length" style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
                 <div  v-for="item in store.state.cart.cart_items" class="widget-cart-item pb-2 border-bottom">
                     <button @click="removeCartItem(item.id)" class="btn-close text-danger" type="button" aria-label="Remove"><span aria-hidden="true">&times;</span></button>
-                    <div class="d-flex align-items-center"><a class="flex-shrink-0" :href="`/products/${item.product.id}`">
-                    <img width="64" v-if="item.product.thumbnail && item.product.thumbnail.url" :src="item.product.thumbnail.url" alt="" srcset="">
-                    <img v-else  :src="item.product.thumbnail
+                    <div class="d-flex align-items-center"><a class="flex-shrink-0" :href="`/products/${item.product.slug}`">
+                    <!-- <img width="64" v-if="item.product.thumbnail && item.product.thumbnail.url" :src="item.product.thumbnail.url" alt="" srcset=""> -->
+                    <img  :src="item.product.thumbnail
 											? '/resize/150/' + item.product.thumbnail.id + '/' + item.product.thumbnail.file_name
 											: '/themes/baby/assets/img/default.jpg'" alt="..." alt="Product" width="64" alt="Product">
                       </a>
