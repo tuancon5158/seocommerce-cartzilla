@@ -8,14 +8,19 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Styles -->
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
     <!-- Scripts -->
+    <script src="/themes/cartzilla/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </head>
+<?php
+    $countries = App\Helpers\Country::getData();
+	?>
 <body class="bg-light">
     <div class="border-bottom shadow-sm py-1" style="background:#2b3445">
         <div id="carouselExampleControls" class="d-flex justify-content-center text-light" data-bs-ride="carousel">
@@ -79,7 +84,11 @@
                                 </div>
                                 <div class="col-12 mt-2">
                                     <hr />
-                                    <span class="text-muted"> <strong>Shipping address:</strong></span>
+                                    <span class="text-muted"> <strong>Shipping address:</strong>
+                                        @if (empty($order->fulfillments->count()))
+                                        <button id="shipping_address_hash" type="button" class="ml-2 btn btn-success" data-bs-toggle="modal" data-bs-target="#modalChangeAddress">Change address</button>
+                                        @endif
+                                    </span>
                                     <span class="lh-lg">
                                         <p>{{$order->shipping_address->first_name }} {{ $order->shipping_address->last_name }}, {{ $order->shipping_address->email }},
 
@@ -95,7 +104,11 @@
 
                                     </span>
                                     <hr />
-                                    <span class="text-muted"> <strong>Billing address: </strong></span>
+                                    <span class="text-muted d-flex "> <strong>Billing address: </strong>
+                                        @if (empty($order->fulfillments->count()))
+                                        <button id="billing_address_hash" type="button" class="ml-2 btn btn-success" data-bs-toggle="modal" data-bs-target="#modalChangeAddress">Change address</button>
+                                        @endif
+                                    </span>
                                     <span class="lh-lg">
                                         <p>{{$order->billing_address->first_name }} {{ $order->billing_address->last_name }}, {{ $order->billing_address->email }},
 
@@ -110,8 +123,8 @@
                                             {{ $order->billing_address->city }}, {{ $order->billing_address->state }}, {{ $order->billing_address->zip }}, {{ \App\Helpers\Country::getCountryNameByCode($order->billing_address->country_code) }}</p>
                                     </span>
                                 </div>
-                                @if($order->fulfillments)
-                                <div class="col-12 mb-2">
+                                @if($order->fulfillments->count())
+                                <div class="col-12 mt-2">
                                     <hr class="mt-0" />
                                     <div class="text-muted"> <strong>Fulfillments:</strong></div>
                                     @foreach($order->fulfillments as $fulfillment)
@@ -149,57 +162,56 @@
                                     @endforeach
                                 </div>
                                 @endif
-                            </div>
+                                <ul class="list-group list-group-lg list-group-flush-x mb-6">
+                                    @foreach($order->order_items as $item)
+                                    <li class="list-group-item py-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4 col-md-3">
 
-                            <ul class="list-group list-group-lg list-group-flush-x mb-6">
-                                @foreach($order->order_items as $item)
-                                <li class="list-group-item py-2">
-                                    <div class="row align-items-center">
-                                        <div class="col-4 col-md-3">
-
-                                            <!-- Image -->
-                                            <a href="{{ route('product', ['slug' => @$item->captured_data['product']['slug']]) }}">
-                                                <img src="{{ @\App\Helpers\Image::resizeMedia(150, $item->captured_data['product']['thumbnail']) }}" alt="{{ @$item->captured_data['product']['title'] }}" class="img-fluid">
-                                            </a>
-
-                                        </div>
-                                        <div class="col">
-
-                                            <!-- Title -->
-                                            <p class="mb-0 font-size-sm font-weight-bold">
-                                                <a style="text-decoration:none;color:#198754" class="text-body; " href="{{ route('product', ['slug' => @$item->captured_data['product']['slug']]) }}">
-                                                    <strong> {{ @$item->captured_data['product']['title'] }} </strong>
+                                                <!-- Image -->
+                                                <a href="{{ route('product', ['slug' => @$item->captured_data['product']['slug']]) }}">
+                                                    <img src="{{ @\App\Helpers\Image::resizeMedia(150, $item->captured_data['product']['thumbnail']) }}" alt="{{ @$item->captured_data['product']['title'] }}" class="img-fluid">
                                                 </a>
 
-                                                <span class="text-muted">
-                                                    @if($variantTitle = @$item->captured_data['variant']['title']) <p class="mb-0"><small>{{ $variantTitle }}</small></p> @endif
-                                                    <p class="mb-0"><small>Price: {{ App\Helpers\Price::format($item->unit_price) }}</small></p>
-
-                                                    @if($item->custom_data and count($item->custom_data))
-                                                    @foreach($item->custom_data as $customKey => $data)
-                                                    <p class="mb-0"><small>{{ $customKey }}: {{ $data['value'] }} @if($data['price']) ({{ App\Helpers\Price::format($data['price']) }}) @endif</small></p>
-                                                    @endforeach
-                                                    @endif
-
-                                                    <p class="mb-0"><small>Qty: {{ $item->quantity }}</small></p>
-
-                                                    <hr />
-                                                    <strong>Total</strong>: {{ App\Helpers\Price::format($item->price) }}
-                                                </span>
-                                            </p>
-
-                                            <!-- Variant data -->
-                                            @if($variantTitle = @$orderItem->captured_data['variant']['title'])
-                                            <div class="font-size-sm">
-                                                ({{ $variantTitle }})
                                             </div>
-                                            @endif
+                                            <div class="col">
 
+                                                <!-- Title -->
+                                                <p class="mb-0 font-size-sm font-weight-bold">
+                                                    <a style="text-decoration:none;color:#198754" class="text-body; " href="{{ route('product', ['slug' => @$item->captured_data['product']['slug']]) }}">
+                                                        <strong> {{ @$item->captured_data['product']['title'] }} </strong>
+                                                    </a>
+
+                                                    <span class="text-muted">
+                                                        @if($variantTitle = @$item->captured_data['variant']['title']) <p class="mb-0"><small>{{ $variantTitle }}</small></p> @endif
+                                                        <p class="mb-0"><small>Price: {{ App\Helpers\Price::format($item->unit_price) }}</small></p>
+
+                                                        @if($item->custom_data and count($item->custom_data))
+                                                        @foreach($item->custom_data as $customKey => $data)
+                                                        <p class="mb-0"><small>{{ $customKey }}: {{ $data['value'] }} @if($data['price']) ({{ App\Helpers\Price::format($data['price']) }}) @endif</small></p>
+                                                        @endforeach
+                                                        @endif
+
+                                                        <p class="mb-0"><small>Qty: {{ $item->quantity }}</small></p>
+
+                                                        <hr />
+                                                        <strong>Total</strong>: {{ App\Helpers\Price::format($item->price) }}
+                                                    </span>
+                                                </p>
+
+                                                <!-- Variant data -->
+                                                @if($variantTitle = @$orderItem->captured_data['variant']['title'])
+                                                <div class="font-size-sm">
+                                                    ({{ $variantTitle }})
+                                                </div>
+                                                @endif
+
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                @endforeach
-                            </ul>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -333,5 +345,197 @@
             <div class=" fs-xs text-light opacity-50 text-center text-md-start"> © 2021 {{ App\Models\Option::getValue('siteName') }} All rights reserved.</div>
         </div>
     </footer>
+    <div class="modal fade " id="modalChangeAddress" tabindex="-1" aria-labelledby="modalChangeAddress" aria-hidden="true">
+    <form class="row g-3 needs-validation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalChangeAddress">Change Address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="firstName">First Name <span class="text-danger">*</span></label>
+                                <input class="form-control" name="first_name" class="form-control" id="firstName" type="text" placeholder="First Name" required>
+                                <div class="invalid-feedback">Please enter First name!</div><small class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="lastName">Last Name <span class="text-danger">*</span></label>
+                                <input name="last_name" class="form-control" id="lastName" type="text">
+                                <div class="invalid-feedback">Please enter Last name!</div><small class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="mb-3">
+                                <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
+                                <input required name="email" class="form-control" id="email" type="email" placeholder="Email">
+                                <div class="invalid-feedback">Please provide valid email address!</div><small class="form-text text-muted"></small>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="mb-3">
+                                <label class="form-label" for="addressOne">Address Line 1 <span class="text-danger">*</span></label>
+                                <input name="address1" class="form-control" id="addressOne" type="text" required>
+                                <div class="invalid-feedback">Please enter Address Line 1</div><small class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="mb-3">
+                                <label class="form-label" for="addressTwo">Address Line 2 </label>
+                                <input name="address2" class="form-control" id="addressTwo" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3 form-group">
+                                <label class="form-label" for="country">Country <span class="text-danger">*</span></label>
+                                <div>
+                                    <select id="country" name="country_code" class=" form-select custom-select js-select2-search">
+                                        <option value="">-- Select country --</option>
+                                        @foreach($countries as $key => $country)
+                                        <option value="{{ $key }}">
+                                            {{ $country }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="state">State <span class="text-danger">*</span></label>
+                                <input required name="state" class="form-control" id="state" type="text" placeholder="State">
+                                <div class="invalid-feedback">Please enter State</div><small class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="town">Town / City <span class="text-danger">*</span></label>
+                                <input required name="city" class="form-control" id="town" type="text" placeholder="Town / City" required>
+                                <div class="invalid-feedback">Please enter Town / City</div><small class="form-text text-muted"></small>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="ZIP">ZIP / Postcode <span class="text-danger">*</span></label>
+                                <input required name="zip" class="form-control" id="ZIP" type="text" placeholder="ZIP / Postcode" required>
+                                <div class="invalid-feedback"> Please enter ZIP / Postcode</div><small class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="form-label" for="phone">Mobile Phone <span class="text-danger">*</span></label>
+                            <input required name="phone" class="form-control" id="phone" type="tel" placeholder="Mobile Phone">
+                            <div class="invalid-feedback">Please enter Mobile Phone</div><small class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="IDModal" type="submit" class="btn btn-success openBtn">Save</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <script>
+        //shipping_address_hash / billing_address_hash
+        var fieldAddressChange = 'shipping_address_hash'
+        $("#shipping_address_hash").click(function() {
+            fieldAddressChange = 'shipping_address_hash'
+        })
+        $("#billing_address_hash").click(function() {
+            fieldAddressChange = 'billing_address_hash'
+        })
+        $("#IDModal").click(function() {
+            console.log('fieldAddressChange', fieldAddressChange)
+            const last_name = $('#lastName').val()
+            const first_name = $('#firstName').val()
+            const email = $('#email').val()
+            const phone = $('#phone').val()
+            const address1 = $('#addressOne').val()
+            const address2 = $('#addressTwo').val()
+            const city = $('#town').val()
+            const state = $('#state').val()
+            const country_code = $('#country').val()
+            const zip = $('#ZIP').val()
+
+            $.ajax({
+                type: 'POST'
+                , url: ' /ajax/addresses'
+                , data: {
+                    last_name
+                    , first_name
+                    , email
+                    , phone
+                    , address1
+                    , address2
+                    , city
+                    , state
+                    , country_code
+                    , zip
+
+                }
+                , headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                , success: function(data) {
+                    $.ajax({
+                        type: 'PATCH'
+                        , url: '/ajax/orders/3'
+                        , data: {
+                           [fieldAddressChange] : data.hash
+
+                        }
+                        , headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                        , success: function(data) {
+                            location.reload();
+
+                        }
+                        , error: function(msg) {
+                            console.log(msg.responseJSON);
+                        }
+                    });
+
+                }
+                , error: function(msg) {
+                    console.log(msg.responseJSON);
+                }
+            });
+        });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.js-select2-search').select2({
+                selectionCssClass: 'custom-select'
+                , width: '100%'
+            });
+        });
+
+    </script>
 </body>
 </html>
