@@ -458,6 +458,7 @@
         </form>
     </div>
     <script>
+    var order = <?php echo json_encode(json_decode($order)); ?>;
         //shipping_address_hash / billing_address_hash
         var fieldAddressChange = 'shipping_address_hash'
         $("#shipping_address_hash").click(function() {
@@ -466,7 +467,7 @@
         $("#billing_address_hash").click(function() {
             fieldAddressChange = 'billing_address_hash'
         })
-        $("#IDModal").click(function() {
+        $("#IDModal").click(function(e) {
             console.log('fieldAddressChange', fieldAddressChange)
             const last_name = $('#lastName').val()
             const first_name = $('#firstName').val()
@@ -501,7 +502,7 @@
                 , success: function(data) {
                     $.ajax({
                         type: 'PATCH'
-                        , url: '/ajax/orders/3'
+                        , url: '/ajax/orders/'+order.id
                         , data: {
                            [fieldAddressChange] : data.hash
 
@@ -510,7 +511,9 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
                         , success: function(data) {
-                            location.reload();
+                          if(data){
+                              location.reload()
+                          }
 
                         }
                         , error: function(msg) {
@@ -523,6 +526,7 @@
                     console.log(msg.responseJSON);
                 }
             });
+             e.preventDefault();
         });
 
     </script>
@@ -538,4 +542,17 @@
 
     </script>
 </body>
+<style type="text/css">
+    .select2-selection--single {
+        border: none !important;
+        padding: .2rem 1rem !important;
+        border: 1px solid #dae1e7 !important;
+        height: auto !important
+    }
+
+    .select2-selection__arrow {
+        top: 10px !important;
+    }
+</style>
+
 </html>
