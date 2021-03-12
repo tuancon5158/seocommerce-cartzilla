@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="col-12 mt-2">
                                     <hr />
-                                    <span class="text-muted"> <strong>Shipping address:</strong>
+                                    <span class="mb-2 text-muted d-flex justify-content-between"> <strong>Shipping address:</strong>
                                         @if (empty($order->fulfillments->count()))
                                         <button id="shipping_address_hash" type="button" class="ml-2 btn btn-success" data-bs-toggle="modal" data-bs-target="#modalChangeAddress">Change address</button>
                                         @endif
@@ -104,7 +104,7 @@
 
                                     </span>
                                     <hr />
-                                    <span class="text-muted d-flex "> <strong>Billing address: </strong>
+                                    <span class="text-muted d-flex justify-content-between mb-2"> <strong>Billing address: </strong>
                                         @if (empty($order->fulfillments->count()))
                                         <button id="billing_address_hash" type="button" class="ml-2 btn btn-success" data-bs-toggle="modal" data-bs-target="#modalChangeAddress">Change address</button>
                                         @endif
@@ -452,16 +452,16 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button id="IDModal" type="submit" class="btn btn-success openBtn">
-  <span id="loadingButton" class="d-none spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span id="loadingButton" class="d-none spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 
-                        Save</button>
+                            Save</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
     <script>
-        var order = <?php echo json_encode(json_decode($order));?> ;
+        var order = < ? php echo json_encode(json_decode($order)); ? > ;
         //shipping_address_hash / billing_address_hash
         var fieldAddressChange = 'shipping_address_hash'
         $("#shipping_address_hash").click(function() {
@@ -515,7 +515,7 @@
             const state = $('#state').val()
             const country_code = $('#country').val()
             const zip = $('#ZIP').val()
-             $('#loadingButton').removeClass("d-none")
+            $('#loadingButton').removeClass("d-none")
             $.ajax({
                 type: 'POST'
                 , url: ' /ajax/addresses'
