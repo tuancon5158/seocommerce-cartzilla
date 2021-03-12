@@ -347,7 +347,7 @@
     </footer>
     <div class="modal fade " id="modalChangeAddress" tabindex="-1" aria-labelledby="modalChangeAddress" aria-hidden="true">
         <form class="row g-3 needs-validation">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalChangeAddress">Change Address</h5>
@@ -461,7 +461,7 @@
         </form>
     </div>
     <script>
-        var order = < ? php echo json_encode(json_decode($order)); ? > ;
+        var order = <?php echo json_encode(json_decode($order));?> ;
         //shipping_address_hash / billing_address_hash
         var fieldAddressChange = 'shipping_address_hash'
         $("#shipping_address_hash").click(function() {
