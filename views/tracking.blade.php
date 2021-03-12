@@ -21,7 +21,7 @@
 <?php
     $countries = App\Helpers\Country::getData();
 	?>
-<body class="bg-light">
+<body class="bg-light lh-lg" style="">
     <div class="border-bottom shadow-sm py-1" style="background:#2b3445">
         <div id="carouselExampleControls" class="d-flex justify-content-center text-light" data-bs-ride="carousel">
             <strong> Welcome to order tracking page </strong>
@@ -36,7 +36,7 @@
     </header>
     <div class="container">
         <div class="row ">
-            <div class="col d-flex justify-content-center fs-3">
+            <div class="col d-flex justify-content-center fs-1">
                 <strong> Order Tracking </strong>
             </div>
         </div>
@@ -51,7 +51,7 @@
                 @if($order)
                 <form action="{{ route('unauthorizeOrderTracking') }}" method="post">
                     @csrf
-                    <button type="submit" class="btn btn-block btn-success mb-2">
+                    <button type="submit" class="btn btn-block btn-success btn-lg mb-2">
                         Exit tracking
                     </button>
                 </form>
@@ -61,30 +61,30 @@
         </div>
         @if($order)
         <div class="row gy-5 mb-10 pb-10" style="padding-bottom:100px">
-            <div class="col col-sm-7">
-                <div class="shadow-sm rounded bg-body" style="height: 100%">
+            <div class="col col-sm-7 ">
+                <div class="shadow-sm border-radius-box  bg-body" style="height: 100%">
                     <div class="row justify-content-center py-5">
                         <div class="col-12 col-md-12">
                             <div class="row mb-6 px-5 py-2">
                                 <div class="col-6 mb-2">
-                                    <span class="text-muted"> <strong>Payment status: </strong></span>
+                                    <span class=""> <strong>Payment status: </strong></span>
                                     <span>{{ ucfirst($order->payment_status) }}</span>
                                 </div>
                                 <div class="col-6 mb-2">
-                                    <span class="text-muted"> <strong>Support status: </strong></span>
+                                    <span class=""> <strong>Support status: </strong></span>
                                     <span>{{ ucfirst(str_replace('-', ' ', $order->support_status)) }}</span>
                                 </div>
                                 <div class="col-6 mb-2">
-                                    <span class="text-muted"><strong>Fulfillment status: </strong></span>
+                                    <span class=""><strong>Fulfillment status: </strong></span>
                                     <span>{{ ucfirst($order->fulfillment_status) }}</span>
                                 </div>
                                 <div class="col-6 mb-2">
-                                    <span class="text-muted"> <strong>Last update: </strong></span>
+                                    <span class=""> <strong>Last update: </strong></span>
                                     <span>{{ $order->updated_at->diffForHumans() }}</span>
                                 </div>
                                 <div class="col-12 mt-2">
                                     <hr />
-                                    <span class="mb-2 text-muted d-flex justify-content-between"> <strong>Shipping address:</strong>
+                                    <span class="mb-2 d-flex justify-content-between"> <strong>Shipping address:</strong>
                                         @if (empty($order->fulfillments->count()))
                                         <button id="shipping_address_hash" type="button" class="ml-2 btn btn-success" data-bs-toggle="modal" data-bs-target="#modalChangeAddress">Change address</button>
                                         @endif
@@ -104,7 +104,7 @@
 
                                     </span>
                                     <hr />
-                                    <span class="text-muted d-flex justify-content-between mb-2"> <strong>Billing address: </strong>
+                                    <span class="d-flex justify-content-between mb-2"> <strong>Billing address: </strong>
                                         @if (empty($order->fulfillments->count()))
                                         <button id="billing_address_hash" type="button" class="ml-2 btn btn-success" data-bs-toggle="modal" data-bs-target="#modalChangeAddress">Change address</button>
                                         @endif
@@ -128,7 +128,7 @@
                                     <hr class="mt-0" />
                                     <div class="text-muted"> <strong>Fulfillments:</strong></div>
                                     @foreach($order->fulfillments as $fulfillment)
-                                    <div class="card ml-5 mb-2 mt-2 bg-light py-2 px-4 rounded">
+                                    <div class=" mb-2 mt-2 bg-light py-4 px-4  rounded">
                                         <div class="pt-4">
                                             <!-- Time -->
                                             <p class="text-muted">
@@ -162,7 +162,7 @@
                                     @endforeach
                                 </div>
                                 @endif
-                                <ul class="list-group list-group-lg list-group-flush-x mb-6">
+                                <ul class="">
                                     @foreach($order->order_items as $item)
                                     <li class="list-group-item py-2">
                                         <div class="row align-items-center">
@@ -217,7 +217,7 @@
                 </div>
             </div>
             <div class="col col-sm-5 pa-2" style="height: 100%">
-                <div class="shadow-sm rounded bg-body pa-2 mb-3">
+                <div class="shadow-sm border-radius-box bg-body pa-2 mb-3">
                     <div class="col-12 px-3 py-5">
                         <table style="width:100%">
                             <tbody>
@@ -247,21 +247,21 @@
 
                     </div>
                 </div>
-                <div class="shadow-sm rounded bg-body pa-2">
+                <div style="min-height:250px" class="shadow-sm border-radius-box bg-body pa-2 position-relative">
 
                     <div class="align-items-end justify-content-between mb-10 mb-md-0 ">
                         <!-- Messages -->
-                        <div class="mb-5 mb-md-0 py-4 px-4">
+                        <div class="mb-2 mb-md-0 py-1 px-4">
                             <div class="d-flex justify-content-center">
                                 <p class="fs-4">
                                     <strong> Conversation </strong>
                                 </p>
                             </div>
-
+                            <hr />
 
                             @foreach($messages->reverse() as $message)
                             @if($message->user)
-                            <div class="pl-4 mb-2">
+                            <div class="pl-4 mb-5">
                                 <small><strong>{{ $message->user->name }}</strong></small>
                                 <div class="d-inline-block bg-light px-5 py-1 text-muted" style="max-width: 300px; line-height: 1.25; border-radius: 1rem;">
                                     {{ $message->message }}
@@ -276,12 +276,11 @@
                             </div>
                             @endif
                             @endforeach
-
-                            <form action="{{ route('sendMessage') }}" method="POST">
+                            <form style="margin-top: 75px;" action="{{ route('sendMessage') }}" method="POST" class="pb-3">
                                 @csrf
-                                <div class="row form-row mt-3">
+                                <div class="mt-3 row form-row  position-absolute" style="bottom: 15px;width: 90%;right: 7%;">
 
-                                    <div class="col">
+                                    <div class="col input-group">
 
                                         <!-- Input -->
                                         <input name="message" class="form-control form-control" id="messageTracking" type="text" placeholder="Message..." />
@@ -290,7 +289,7 @@
                                     <div class="col-auto">
 
                                         <!-- Button -->
-                                        <button class="btn  btn-success" type="submit">
+                                        <button class="btn  btn-success btn" type="submit">
                                             Send message
                                         </button>
 
@@ -302,7 +301,7 @@
                     </div>
                 </div>
                 @else
-                <div class="shadow-sm rounded bg-body pa-2  d-flex justify-content-center">
+                <div class="shadow-sm border-radius-box bg-body pa-2  d-flex justify-content-center">
                     <div class="col-md-8 col-lg-6 py-5 px-5">
                         @if(isset($errors) and $errors->count() > 0)
                         <div class="alert alert-danger" role="alert">
@@ -322,14 +321,14 @@
 
                         <form action="{{ route('tracking') }}" method="post" class="text-center">
                             @csrf
-                            <div class="input-group mb-4">
+                            <div class="input-group-lg mb-4">
                                 <input name="order_id" class="form-control" type="search" placeholder="Order ID">
                             </div>
-                            <div class="input-group mb-4">
+                            <div class="input-group-lg mb-4">
                                 <input name="email" class="form-control" type="search" placeholder="Email">
                             </div>
                             <!-- Button -->
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-success btn-lg">
                                 Search
                             </button>
                         </form>
@@ -338,9 +337,15 @@
                 @endif
             </div>
         </div>
+        <style>
+            .border-radius-box {
+                border-radius: 20px
+            }
+
+        </style>
     </div>
     </div>
-    <footer class="footer mt-auto py-3 fixed-bottom" style="background:#2b3445">
+    <footer class="footer mt-auto py-3" style="background:#2b3445">
         <div class="container">
             <div class=" fs-xs text-light opacity-50 text-center text-md-start"> © 2021 {{ App\Models\Option::getValue('siteName') }} All rights reserved.</div>
         </div>
@@ -350,7 +355,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalChangeAddress">Change Address</h5>
+                        <h5 class="modal-title" id="modalChangeAddressTitle">Change Address</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -468,6 +473,7 @@
             fieldAddressChange = 'shipping_address_hash'
             var dataDefault = order.shipping_address
             $('#lastName').val(dataDefault.last_name)
+            $('#modalChangeAddressTitle').text('Change shipping address')
             $('#firstName').val(dataDefault.first_name)
             $('#email').val(dataDefault.email)
             $('#country').val(dataDefault.country_code)
@@ -477,6 +483,7 @@
             $('#town').val(dataDefault.city)
             $('#state').val(dataDefault.state)
             $('#ZIP').val(dataDefault.zip)
+            $('#country').trigger('change');
             $('#country option').each(function(index) {
                 if (dataDefault.country_code == $(this).val()) {
                     $(this).attr('selected', 'selected');
@@ -486,10 +493,12 @@
         $("#billing_address_hash").click(function() {
             fieldAddressChange = 'billing_address_hash'
             var dataDefault = order.billing_address
+            $('#modalChangeAddressTitle').text('Change billing address')
             $('#lastName').val(dataDefault.last_name)
             $('#firstName').val(dataDefault.first_name)
             $('#email').val(dataDefault.email)
             $('#country').val(dataDefault.country_code)
+            $('#country').trigger('change');
             $('#phone').val(dataDefault.phone)
             $('#addressOne').val(dataDefault.address1)
             $('#addressTwo').val(dataDefault.address2)
@@ -564,13 +573,8 @@
             e.preventDefault();
         });
 
-        function setFormData() {
-            console.log("set")
-        }
-
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
     <script type="text/javascript">
         $(document).ready(function() {
             $('.js-select2-search').select2({
@@ -580,19 +584,33 @@
         });
 
     </script>
+    <style type="text/css">
+        .select2-selection--single {
+            border: none !important;
+            padding: .2rem 1rem !important;
+            border: 1px solid #dae1e7 !important;
+            height: auto !important
+        }
+        .custom-select:valid {
+            border: 1px solid #ced4da !important;
+        }
+        .select2-container--focus {
+            background-color: #fff;
+            background-clip: padding-box;
+            border: none;
+            outline: none !important;
+            border: 1px solid #ced4da !important;
+        }
+        .custom-select {
+            border: 1px solid #ced4da !important;
+        }
+        .custom-select:valid:focus{border-color:#28a745;box-shadow:0 0 0 .2rem rgba(40,167,69,.25)}
+        .select2-selection__arrow {
+            top: 8px !important;
+        }
+
+    </style>
 </body>
-<style type="text/css">
-    .select2-selection--single {
-        border: none !important;
-        padding: .2rem 1rem !important;
-        border: 1px solid #dae1e7 !important;
-        height: auto !important
-    }
 
-    .select2-selection__arrow {
-        top: 10px !important;
-    }
-
-</style>
 
 </html>
