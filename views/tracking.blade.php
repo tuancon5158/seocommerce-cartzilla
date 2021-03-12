@@ -15,7 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
     <!-- Scripts -->
-    <script src="/themes/cartzilla/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </head>
 <?php
@@ -346,129 +346,165 @@
         </div>
     </footer>
     <div class="modal fade " id="modalChangeAddress" tabindex="-1" aria-labelledby="modalChangeAddress" aria-hidden="true">
-    <form class="row g-3 needs-validation">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalChangeAddress">Change Address</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="firstName">First Name <span class="text-danger">*</span></label>
-                                <input class="form-control" name="first_name" class="form-control" id="firstName" type="text" placeholder="First Name" required>
-                                <div class="invalid-feedback">Please enter First name!</div><small class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="lastName">Last Name <span class="text-danger">*</span></label>
-                                <input name="last_name" class="form-control" id="lastName" type="text">
-                                <div class="invalid-feedback">Please enter Last name!</div><small class="form-text text-muted"></small>
-                            </div>
-                        </div>
+        <form class="row g-3 needs-validation">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalChangeAddress">Change Address</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="mb-3">
-                                <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
-                                <input required name="email" class="form-control" id="email" type="email" placeholder="Email">
-                                <div class="invalid-feedback">Please provide valid email address!</div><small class="form-text text-muted"></small>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="firstName">First Name <span class="text-danger">*</span></label>
+                                    <input class="form-control" name="first_name" class="form-control" id="firstName" type="text" placeholder="First Name" required>
+                                    <div class="invalid-feedback">Please enter First name!</div><small class="form-text text-muted"></small>
+                                </div>
                             </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="mb-3">
-                                <label class="form-label" for="addressOne">Address Line 1 <span class="text-danger">*</span></label>
-                                <input name="address1" class="form-control" id="addressOne" type="text" required>
-                                <div class="invalid-feedback">Please enter Address Line 1</div><small class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="mb-3">
-                                <label class="form-label" for="addressTwo">Address Line 2 </label>
-                                <input name="address2" class="form-control" id="addressTwo" type="text">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="mb-3 form-group">
-                                <label class="form-label" for="country">Country <span class="text-danger">*</span></label>
-                                <div>
-                                    <select id="country" name="country_code" class=" form-select custom-select js-select2-search">
-                                        <option value="">-- Select country --</option>
-                                        @foreach($countries as $key => $country)
-                                        <option value="{{ $key }}">
-                                            {{ $country }}
-                                        </option>
-                                        @endforeach
-                                    </select>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="lastName">Last Name <span class="text-danger">*</span></label>
+                                    <input name="last_name" class="form-control" id="lastName" type="text">
+                                    <div class="invalid-feedback">Please enter Last name!</div><small class="form-text text-muted"></small>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="state">State <span class="text-danger">*</span></label>
-                                <input required name="state" class="form-control" id="state" type="text" placeholder="State">
-                                <div class="invalid-feedback">Please enter State</div><small class="form-text text-muted"></small>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="mb-3">
+                                    <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
+                                    <input required name="email" class="form-control" id="email" type="email" placeholder="Email">
+                                    <div class="invalid-feedback">Please provide valid email address!</div><small class="form-text text-muted"></small>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="mb-3">
+                                    <label class="form-label" for="addressOne">Address Line 1 <span class="text-danger">*</span></label>
+                                    <input name="address1" class="form-control" id="addressOne" type="text" required>
+                                    <div class="invalid-feedback">Please enter Address Line 1</div><small class="form-text text-muted"></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="mb-3">
+                                    <label class="form-label" for="addressTwo">Address Line 2 </label>
+                                    <input name="address2" class="form-control" id="addressTwo" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-3 form-group">
+                                    <label class="form-label" for="country">Country <span class="text-danger">*</span></label>
+                                    <div>
+                                        <select id="country" name="country_code" class=" form-select custom-select js-select2-search">
+                                            <option value="">-- Select country --</option>
+                                            @foreach($countries as $key => $country)
+                                            <option value="{{ $key }}">
+                                                {{ $country }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="state">State <span class="text-danger">*</span></label>
+                                    <input required name="state" class="form-control" id="state" type="text" placeholder="State">
+                                    <div class="invalid-feedback">Please enter State</div><small class="form-text text-muted"></small>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="town">Town / City <span class="text-danger">*</span></label>
+                                    <input required name="city" class="form-control" id="town" type="text" placeholder="Town / City" required>
+                                    <div class="invalid-feedback">Please enter Town / City</div><small class="form-text text-muted"></small>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="ZIP">ZIP / Postcode <span class="text-danger">*</span></label>
+                                    <input required name="zip" class="form-control" id="ZIP" type="text" placeholder="ZIP / Postcode" required>
+                                    <div class="invalid-feedback"> Please enter ZIP / Postcode</div><small class="form-text text-muted"></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="form-label" for="phone">Mobile Phone <span class="text-danger">*</span></label>
+                                <input required name="phone" class="form-control" id="phone" type="tel" placeholder="Mobile Phone">
+                                <div class="invalid-feedback">Please enter Mobile Phone</div><small class="form-text text-muted"></small>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="IDModal" type="submit" class="btn btn-success openBtn">
+  <span id="loadingButton" class="d-none spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="town">Town / City <span class="text-danger">*</span></label>
-                                <input required name="city" class="form-control" id="town" type="text" placeholder="Town / City" required>
-                                <div class="invalid-feedback">Please enter Town / City</div><small class="form-text text-muted"></small>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="ZIP">ZIP / Postcode <span class="text-danger">*</span></label>
-                                <input required name="zip" class="form-control" id="ZIP" type="text" placeholder="ZIP / Postcode" required>
-                                <div class="invalid-feedback"> Please enter ZIP / Postcode</div><small class="form-text text-muted"></small>
-                            </div>
-                        </div>
+                        Save</button>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label class="form-label" for="phone">Mobile Phone <span class="text-danger">*</span></label>
-                            <input required name="phone" class="form-control" id="phone" type="tel" placeholder="Mobile Phone">
-                            <div class="invalid-feedback">Please enter Mobile Phone</div><small class="form-text text-muted"></small>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="IDModal" type="submit" class="btn btn-success openBtn">Save</button>
                 </div>
             </div>
-        </div>
         </form>
     </div>
     <script>
-    var order = <?php echo json_encode(json_decode($order)); ?>;
+        var order = <?php echo json_encode(json_decode($order));?> ;
         //shipping_address_hash / billing_address_hash
         var fieldAddressChange = 'shipping_address_hash'
         $("#shipping_address_hash").click(function() {
             fieldAddressChange = 'shipping_address_hash'
+            var dataDefault = order.shipping_address
+            $('#lastName').val(dataDefault.last_name)
+            $('#firstName').val(dataDefault.first_name)
+            $('#email').val(dataDefault.email)
+            $('#country').val(dataDefault.country_code)
+            $('#phone').val(dataDefault.phone)
+            $('#addressOne').val(dataDefault.address1)
+            $('#addressTwo').val(dataDefault.address2)
+            $('#town').val(dataDefault.city)
+            $('#state').val(dataDefault.state)
+            $('#ZIP').val(dataDefault.zip)
+            $('#country option').each(function(index) {
+                if (dataDefault.country_code == $(this).val()) {
+                    $(this).attr('selected', 'selected');
+                }
+            });
         })
         $("#billing_address_hash").click(function() {
             fieldAddressChange = 'billing_address_hash'
+            var dataDefault = order.billing_address
+            $('#lastName').val(dataDefault.last_name)
+            $('#firstName').val(dataDefault.first_name)
+            $('#email').val(dataDefault.email)
+            $('#country').val(dataDefault.country_code)
+            $('#phone').val(dataDefault.phone)
+            $('#addressOne').val(dataDefault.address1)
+            $('#addressTwo').val(dataDefault.address2)
+            $('#town').val(dataDefault.city)
+            $('#state').val(dataDefault.state)
+            $('#ZIP').val(dataDefault.zip)
+            $('#country option').each(function(index) {
+                if (dataDefault.country_code == $(this).val()) {
+                    $(this).attr('selected', 'selected');
+                }
+            });
+
+
         })
         $("#IDModal").click(function(e) {
-            console.log('fieldAddressChange', fieldAddressChange)
             const last_name = $('#lastName').val()
             const first_name = $('#firstName').val()
             const email = $('#email').val()
@@ -479,7 +515,7 @@
             const state = $('#state').val()
             const country_code = $('#country').val()
             const zip = $('#ZIP').val()
-
+             $('#loadingButton').removeClass("d-none")
             $.ajax({
                 type: 'POST'
                 , url: ' /ajax/addresses'
@@ -494,7 +530,6 @@
                     , state
                     , country_code
                     , zip
-
                 }
                 , headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -502,18 +537,18 @@
                 , success: function(data) {
                     $.ajax({
                         type: 'PATCH'
-                        , url: '/ajax/orders/'+order.id
+                        , url: '/ajax/orders/' + order.id
                         , data: {
-                           [fieldAddressChange] : data.hash
+                            [fieldAddressChange]: data.hash
 
                         }
                         , headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
                         , success: function(data) {
-                          if(data){
-                              location.reload()
-                          }
+                            if (data) {
+                                location.reload()
+                            }
 
                         }
                         , error: function(msg) {
@@ -526,8 +561,12 @@
                     console.log(msg.responseJSON);
                 }
             });
-             e.preventDefault();
+            e.preventDefault();
         });
+
+        function setFormData() {
+            console.log("set")
+        }
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
@@ -553,6 +592,7 @@
     .select2-selection__arrow {
         top: 10px !important;
     }
+
 </style>
 
 </html>
