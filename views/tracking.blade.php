@@ -22,22 +22,10 @@
     $countries = App\Helpers\Country::getData();
 	?>
 <body class="bg-light lh-lg" style="">
-    <div class="border-bottom shadow-sm py-1" style="background:#2b3445">
-        <div id="carouselExampleControls" class="d-flex justify-content-center text-light" data-bs-ride="carousel">
-            <strong> Welcome to order tracking page </strong>
-        </div>
-    </div>
-    <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 py-4 bg-body border-bottom shadow-sm">
-        <p class="h5 my-0 me-md-auto fw-bold"></p>
-        <nav class="d-flex my-2 my-md-0 me-md-3 list-unstyled">
-            <a class="nav-link p-2 text-dark list-unstyled" href="/products">All product</a>
-            <a class=" nav-link p-2 text-dark" href="/collections">Collections</a>
-        </nav>
-    </header>
     <div class="container">
-        <div class="row ">
-            <div class="col d-flex justify-content-center fs-1">
-                <strong> Order Tracking </strong>
+        <div class="row pt-5">
+            <div class="col d-flex justify-content-center fs-3">
+                <strong> Order {{ $order ? '#'.$order->id : 'Tracking' }} </strong>
             </div>
         </div>
         <div class="row ">
@@ -51,7 +39,7 @@
                 @if($order)
                 <form action="{{ route('unauthorizeOrderTracking') }}" method="post">
                     @csrf
-                    <button type="submit" class="btn btn-block btn-success btn-lg mb-2">
+                    <button type="submit" class="btn btn-block btn-danger mb-2">
                         Exit tracking
                     </button>
                 </form>
@@ -86,7 +74,7 @@
                                     <hr />
                                     <span class="mb-2 d-flex justify-content-between"> <strong>Shipping address:</strong>
                                         @if (empty($order->fulfillments->count()))
-                                        <button id="shipping_address_hash" type="button" class="ml-2 btn btn-success" data-bs-toggle="modal" data-bs-target="#modalChangeAddress">Change address</button>
+                                        <button id="shipping_address_hash" type="button" class="ml-2 btn btn-link" data-bs-toggle="modal" data-bs-target="#modalChangeAddress">Change address</button>
                                         @endif
                                     </span>
                                     <span class="lh-lg">
@@ -106,7 +94,7 @@
                                     <hr />
                                     <span class="d-flex justify-content-between mb-2"> <strong>Billing address: </strong>
                                         @if (empty($order->fulfillments->count()))
-                                        <button id="billing_address_hash" type="button" class="ml-2 btn btn-success" data-bs-toggle="modal" data-bs-target="#modalChangeAddress">Change address</button>
+                                        <button id="billing_address_hash" type="button" class="ml-2 btn btn-link" data-bs-toggle="modal" data-bs-target="#modalChangeAddress">Change address</button>
                                         @endif
                                     </span>
                                     <span class="lh-lg">
@@ -225,7 +213,6 @@
                                     <td> <strong>Subtotal</strong></td>
                                     <td><span class="ml-auto font-size-sm">{{ App\Helpers\Price::format($order->subtotal) }}</span></td>
                                 </tr>
-
                                 <tr>
                                     <td><strong>Tax</strong></td>
                                     <td><span class="ml-auto font-size-sm">{{ App\Helpers\Price::format($order->tax) }}</span></td>
@@ -301,6 +288,7 @@
                     </div>
                 </div>
                 @else
+
                 <div class="shadow-sm border-radius-box bg-body pa-2  d-flex justify-content-center">
                     <div class="col-md-8 col-lg-6 py-5 px-5">
                         @if(isset($errors) and $errors->count() > 0)
@@ -329,10 +317,17 @@
                             </div>
                             <!-- Button -->
                             <button type="submit" class="btn btn-success btn-lg">
-                                Search
+                                Find order
+
                             </button>
                         </form>
                     </div>
+                </div>
+                <div class="shadow-sm  border-radius-box bg-body pa-2 p-5 mt-5 mb-5 text-center">
+                    <p>Your Order ID can be found in the Order Confirmation email (sometimes it may take a few minutes to arrive).</p>
+                    <p>In case you couldn't find your Order Confirmation email, please don't forget to check the Spam box.</p>
+                    <p>If you're using Gmail, you may need to check the "Promotion" tab too, see the image below:</p>
+                    <a href="/img/tracking-email-guide.png" target="_blank"><img style="width: 100%" src="/img/tracking-email-guide.png" /></a>
                 </div>
                 @endif
             </div>
@@ -345,7 +340,7 @@
         </style>
     </div>
     </div>
-    <footer class="footer mt-auto py-3" style="background:#2b3445">
+    <footer class="footer  fixed-bottom mt-auto py-3" style="background:#2b3445">
         <div class="container">
             <div class=" fs-xs text-light opacity-50 text-center text-md-start"> © 2021 {{ App\Models\Option::getValue('siteName') }} All rights reserved.</div>
         </div>
@@ -458,7 +453,6 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button id="IDModal" type="submit" class="btn btn-success openBtn">
                             <span id="loadingButton" class="d-none spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-
                             Save</button>
                     </div>
                 </div>
@@ -591,9 +585,11 @@
             border: 1px solid #dae1e7 !important;
             height: auto !important
         }
+
         .custom-select:valid {
             border: 1px solid #ced4da !important;
         }
+
         .select2-container--focus {
             background-color: #fff;
             background-clip: padding-box;
@@ -601,10 +597,16 @@
             outline: none !important;
             border: 1px solid #ced4da !important;
         }
+
         .custom-select {
             border: 1px solid #ced4da !important;
         }
-        .custom-select:valid:focus{border-color:#28a745;box-shadow:0 0 0 .2rem rgba(40,167,69,.25)}
+
+        .custom-select:valid:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .25)
+        }
+
         .select2-selection__arrow {
             top: 8px !important;
         }
