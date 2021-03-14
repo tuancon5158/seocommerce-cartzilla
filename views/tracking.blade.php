@@ -317,7 +317,7 @@
                             </div>
                             <!-- Button -->
                             <button type="submit" class="btn btn-success btn-lg">
-                                Find order
+                                Track my order
 
                             </button>
                         </form>
